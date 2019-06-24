@@ -26,5 +26,19 @@ writeFileSync('output.pdf', pdf)
 
 ## simplifyPaths
 
-```
+```ts
+import {svg2pdf} from 'mujer'
+
+var output = await simplifyPaths({
+  input: 'test2.svg', 
+  width: 1000, 
+  height: 1000,
+  tolerance: 5
+})
+
+// in node.js I could save it to a file
+writeFileSync('test2_simplified.svg', output)
+
+// in the browser I could render in the ducument:
+document.getElementById('svg-container').innerHTML = output
 ```
