@@ -1,4 +1,4 @@
-import { BaseOptions } from './types';
+import { BaseOptions } from './types'
 
 const SVGO = require('svgo')
 

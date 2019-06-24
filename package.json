@@ -4,6 +4,11 @@
   "description": "Practical SVG processing tools for optimize, transform, format conversion, and more, supporting node.js, browser and CLI.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
+  "bin": {
+    "svg2pdf": "bin/svg2pdf.js",
+    "simplifyPaths": "bin/simplifyPaths.js",
+    "optimizeSvg": "bin/optimizeSvg.js"
+  },
   "scripts": {
     "test": "npm run build && ava",
     "test-browser": "exit 0; npx ava test-browser/*Test.ts",
@@ -12,8 +17,7 @@
     "prepare": "npm run build",
     "test-debug": "node --inspect-brk node_modules/ava/cli.js --serial",
     "clean": "rm -rf tmp* dist",
-    "build": "npm run clean && npx tsc && npm run copy",
-    "copy": "exit 0; cp src/geometrize.js dist/src",
+    "build": "npm run clean && npx tsc",
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
     "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",

@@ -1,7 +1,6 @@
 import test from 'ava'
 import { readFileSync } from 'fs'
-import { simplifyPaths } from '../src/simplifyPaths'
-import { optimizeSvg } from '../src/optimizeSvg';
+import { optimizeSvg } from '../src/optimizeSvg'
 
 test('should generate pdf', async t => {
   var output = await optimizeSvg({

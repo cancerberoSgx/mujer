@@ -6,13 +6,7 @@ docs
 *.tgz
 .nyc_output
 coverage
-typescript-ast-query-editor/src/queryAst/tsLibraries
-log2.txt
 /package
 .vscode
 test-browser-outdir
-playground
 tmp*
-probes
-mujer-svg2pdf
-mujer-vector-path-processing
