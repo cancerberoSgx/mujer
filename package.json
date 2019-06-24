@@ -21,7 +21,9 @@
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
     "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",
-    "all": "npm run clean && npm run lint && npm run build && npm run test && npm run test-js && npm run test-browser",
+    "docs": "npm run docs-readme-toc",
+    "docs-readme-toc": "npx markdown-toc README.md -i",
+    "all": "npm run clean && npm run lint && npm run build && npm run test && npm run test-js && npm run test-browser && npm run docs",
     "all-publish": "npm run all && git commit -a -m \"version patch\" && npm version patch && npm publish"
   },
   "license": "MIT",
@@ -33,10 +35,11 @@
     "svgo": "github:cancerberosgx/svgo"
   },
   "devDependencies": {
-    "babel-polyfill": "^6.26.0",
     "@types/node": "^12.0.10",
     "@types/paper": "^0.11.14",
     "ava": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
+    "markdown-toc": "^1.2.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },

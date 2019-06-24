@@ -9,7 +9,8 @@ test('should generate pdf', async t => {
     height: 1000,
     tolerance: 5
   })
-  t.true(readFileSync('./test/assets/test2.svg').length > readFileSync('./test/assets/test2_simplifyPaths.svg').toString().length)
+  t.true(readFileSync('./test/assets/test2.svg').toString().length > output.length)
+  t.deepEqual(readFileSync('./test/assets/test2_simplifyPaths.svg').toString(), output)
 })
 
 test.todo('from input code ')

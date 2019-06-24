@@ -9,4 +9,4 @@ test('should generate pdf', async t => {
   t.true(readFileSync('./test/assets/test2.svg').length > output.length)
 })
 
-test.todo('from input code ')
+test.todo('options')
