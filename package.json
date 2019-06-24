@@ -1,6 +1,6 @@
 {
   "name": "mujer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Practical SVG processing tools for optimize, transform, format conversion, and more, supporting node.js, browser and CLI.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
