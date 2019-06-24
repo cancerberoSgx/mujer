@@ -1,0 +1,1 @@
+export {svg2pdf} from './svg2pdf'
