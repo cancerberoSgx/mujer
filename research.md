@@ -201,3 +201,10 @@ https://github.com/thi-ng/umbrella/tree/master/packages/geom-poly-utils
 
 #curve subdivisions: 
 https://github.com/thi-ng/umbrella/tree/master/packages/geom-subdiv-curve
+
+
+ * simplify all its pathd to optimize sie using http://paperjs.org/reference/path/#simplify
+ * flatten paths (sharpen - round to square path edges)
+ * smoth paths (blur analog for vector paths - round apath angles)
+ * smooth the contrary to simplify https://www.npmjs.com/package/chaikin-smooth
+ * https://www.npmjs.com/package/@thi.ng/geom

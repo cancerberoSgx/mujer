@@ -1,12 +1,11 @@
-import { PaperScope } from 'paper'
 import * as paper_ from 'paper'
-import {isNode} from 'misc-utils-of-mine-generic'
-import { resolveInput } from './util';
-import { BaseOptions } from './types';
+import { PaperScope } from 'paper'
+import { BaseOptions } from './types'
+import { resolveInput } from './util'
 
 var paper = require('paper-jsdom-canvas') as PaperScope & { createCanvas: any } & (typeof paper_)
 
-interface Svg2PdfOptions extends BaseOptions{
+interface Svg2PdfOptions extends BaseOptions {
   width: number
   height: number
 }

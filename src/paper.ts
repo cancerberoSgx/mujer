@@ -1,9 +1,9 @@
-import { Item } from 'paper';
+import { Item } from 'paper'
 
-export function visit (i: Item, v: (i: Item)=>void ){
-  function f(i: Item){
+export function visit(i: Item, v: (i: Item) => void) {
+  function f(i: Item) {
     v(i);
-    (i.children||[]).forEach(f)
+    (i.children || []).forEach(f)
   }
   f(i)
 }

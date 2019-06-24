@@ -25,7 +25,8 @@
     "misc-utils-of-mine-generic": "^0.2.10",
     "paper": "^0.12.2",
     "paper-jsdom": "^0.12.2",
-    "paper-jsdom-canvas": "^0.12.2"
+    "paper-jsdom-canvas": "^0.12.2",
+    "svgo": "github:cancerberosgx/svgo"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",

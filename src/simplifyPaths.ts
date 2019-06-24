@@ -1,30 +1,30 @@
 import paper, { Item, Project } from 'paper'
-import { visit } from './paper';
-import { BaseOptions } from './types';
-import { resolveInput } from './util';
+import { visit } from './paper'
+import { BaseOptions } from './types'
+import { resolveInput } from './util'
 
-interface SimplifyPathsOptions extends BaseOptions{
-  tolerance: number 
+interface SimplifyPathsOptions extends BaseOptions {
+  tolerance: number
   width: number
   height: number
 }
 export async function simplifyPaths(o: SimplifyPathsOptions) {
-  paper.setup(new paper.Size(o.width, o.height));
+  paper.setup(new paper.Size(o.width, o.height))
   const svg = await importSvgAndSimplifyPaths({
     ...o,
-    project: paper.project!, 
-})
-return svg
+    project: paper.project!,
+  })
+  return svg
 }
 
-function importSvgAndSimplifyPaths(o: SimplifyPathsOptions&{project:Project}): Promise<string>{
+function importSvgAndSimplifyPaths(o: SimplifyPathsOptions & { project: Project }): Promise<string> {
   return new Promise((resolve, reject) => {
     o.project.importSVG(resolveInput(o), {
-      onLoad: async function (item: Item) {
-        const svg = simplifyProjectDescendants( o );
+      onLoad: async function(item: Item) {
+        const svg = simplifyProjectDescendants(o)
         resolve(svg)
       },
-      onError: function (message: any) {
+      onError: function(message: any) {
         reject(message)
       }
     })
@@ -39,7 +39,7 @@ async function simplifyProjectDescendants({ project, tolerance }: { project: Pro
       }
     })
   })
-   const svg= paper.project!.exportSVG({ asString: true });
-return svg as any as string
+  const svg = paper.project!.exportSVG({ asString: true })
+  return svg as any as string
 }
 // module.exports.simplifyProjectDescendants = simplifyProjectDescendants
