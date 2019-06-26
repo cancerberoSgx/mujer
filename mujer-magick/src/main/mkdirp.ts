@@ -1,4 +1,4 @@
-function mkdirp(path: string, exists: (f: string) => boolean, mkdir: (f: string) => any) {
+export function mkdirp(path: string, exists: (f: string) => boolean, mkdir: (f: string) => any) {
   const folders = path.split('/');
   function f(i: number) {
     if (folders.length <= i) {

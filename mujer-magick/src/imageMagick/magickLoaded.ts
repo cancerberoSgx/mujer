@@ -1,9 +1,10 @@
 import { Deferred } from 'misc-utils-of-mine-generic'
 import { getOptions } from '../options';
 import { FS } from '../emscriptenFs';
+import { NativeMain } from './createMain';
 
 export interface Main{
-  main: (...args: any[])=>any, 
+  main: NativeMain, 
   FS:FS
 }
 

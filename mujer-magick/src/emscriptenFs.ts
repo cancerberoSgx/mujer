@@ -58,7 +58,7 @@ export interface FS {
   readFile(path: string, opts?: { encoding: string; flags: string }): any;
   writeFile(path: string, data: ArrayBufferView, opts?: { encoding: string; flags: string }): void;
   writeFile(path: string, data: string, opts?: { encoding: string; flags: string }): void;
-
+  analyzePath(p:string):any
   cwd(): string;
   chdir(path: string): void;
   init(input: () => number, output: (c: number) => any, error: (c: number) => any): void;

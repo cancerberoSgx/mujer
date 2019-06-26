@@ -1,97 +1,60 @@
-// import { getOptions } from '../options';
-// import { magickLoaded } from '../imageMagick/magickLoaded';
-// import { slash, basename } from 'misc-utils-of-mine-generic';
-// import { dirname } from 'path';
+import { getOptions, Options, setOptions, getOption } from '../options';
+import { magickLoaded } from '../imageMagick/magickLoaded';
+import { getFileDir } from './util';
+import { NativeResult } from '../imageMagick/createMain';
+import {mkdirp} from './mkdirp'
+import { pathJoin, objectMap, objectKeys, notUndefined } from 'misc-utils-of-mine-generic';
 
-// interface Command {
-//   cmd: string[]
-//   inputFiles: InputFile[]
-// }
+interface MainOptions extends Partial<Options> {
+  commands: string[]
+  inputFiles: File[]
+}
 
-// interface InputFile {
-//   name: string
-//   content: Buffer
-// }
+interface File {
+  name: string
+  content: Buffer
+  
+}
 
-// export async function execute(o: Command){
-//   const {localNodeFsRoot, emscriptenNodeFsRoot} = getOptions()
-//   const {FS, main} = await magickLoaded
-//   o.inputFiles.forEach(f=>{
-//     // const name = normalizePathToBaseName(f)
-//     const dirName = getFileDir(f.name);
-//     if(dirName.trim()){
-//       mkdirp(dirName, FS.isDir, FS.mkdir)
-//     }
-//     FS.chdir(emscriptenNodeFsRoot)
-//     FS.writeFile(f.name, f.content)
+interface MainResult extends NativeResult {
+  outputFiles: File[]
+}
 
-//   })
-// }
+export async function main(o: MainOptions): Promise<MainResult> {
+  // set options that user might given
+    objectKeys(getOptions())
+    .map(k=>o[k])
+    .filter<any>(notUndefined)
+    .forEach((k:keyof Options)=>setOptions({[k]: o[k]}))
+  
+    const {localNodeFsRoot, emscriptenNodeFsRoot} = getOptions()
+  
+    const {FS, main} = await magickLoaded
 
-// function getFileDir(f: string) {
-//   const baseName = basename(f);
-//   let folderName = f.substring(0, f.length - baseName.length);
-//   if (folderName.endsWith('/')) {
-//     folderName = folderName.substring(0, folderName.length - 1);
-//   }
-//   return folderName
-// }
-
-// function normalizePathToBaseName(f: InputFile) {
-//   return slash(f.name).replace(/\//g, '_');
-// }
-
-//   // const main = (options = {command: [], inputFiles: [], outputFileNames: []}) =>{
-//   //   const {command, inputFiles, outputFileNames} = {command: [], inputFiles: [],outputFileNames: [] , ...options}
-//   //   stdout = []
-//   //   stderr = []
-//   //   inputFiles.map(f=>({...f, name: `/${basename(f.name)}`})).forEach(f=>{
-//   //     FS.writeFile(f.name, f.content);
-//   //   })
-//   //   let returnValue, error
-//   //   try {
-//   //     returnValue =  Module.callMain(command)
-//   //   } catch (ex) {
-//   //     error = ex
-//   //   }
-//   //   const outputFiles = outputFileNames.map(f=>{
-//   //     return {
-//   //       name: f,
-//   //       content: FS.readFile(f)
-//   //     }
-//   //   })
-//   //   inputFiles.concat(outputFileNames).forEach(f=>{
-//   //     FS.unlink(f.name);
-//   //   })
-//   //   return {stdout, stderr, returnValue, outputFiles, error}
-//   // }
-
-
-
-// // //@ts-nocheck
-
-// // var { magickLoaded } = require('../../')
-// // const { readFileSync } = require('fs')
-
-// // magickLoaded.then(({ FS, main }) => {
-// //   const format = getImageFormat({ FS, main, fileName: 'n.png', fileContent: readFileSync('test/assets/n.png') })
-// //   process.stdout.write('The format is: ' + format);
-// // })
-
-// // function getImageFormat({ FS, main, fileName, fileContent }) {
-// //   var internalName = '/' + fileName;
-// //   FS.writeFile(internalName, fileContent);
-
-// //   var command = ["identify", internalName];
-// //   try {
-// //     const { stdout, stderr } = main(command)
-// //     var format = stdout.join('').split(/\s+/g)[1]
-// //     return format.toLowerCase()
-// //   }
-// //   catch (e) {
-// //     console.error('ERROR', e);
-// //     throw e
-// //   }
-// // }
-
+  o.inputFiles.forEach(f=>{
+    const name = pathJoin(emscriptenNodeFsRoot, f.name)    
+    const dirName = getFileDir(name);
+    // console.log('mkdir -p', dirName);
+    if(dirName.trim()){
+      mkdirp(dirName,( p: string)=>FS.analyzePath(p).exists, FS.mkdir)
+    }
+    // console.log('Writing file ', name);
+    FS.writeFile(name, f.content)
+  })
+    FS.chdir(emscriptenNodeFsRoot)
+  
+  // console.log('Executing',o.commands);
+  let returnValue = main(o.commands)
+  // console.log('returnvalue', returnValue);
+  
+  //TODO: clean up generated files
+  // TODO: outputFiles
+  return {
+    ...returnValue,
+    outputFiles: []
+  }
+  // } catch (ex) {
+    // error = ex
+  // }
+}
 
