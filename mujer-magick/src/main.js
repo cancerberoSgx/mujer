@@ -1,4 +1,4 @@
-const { magickLoaded, pushStdout, resetStdout, getStdout, pushStderr, resetStderr, getStderr } = require('./node_magick_load_listener')
+const { magickLoaded, pushStdout, resetStdout, getStdout, pushStderr, resetStderr, getStderr } = require('./magickLoaded')
 
 
 module.exports.createMain = function(Module){

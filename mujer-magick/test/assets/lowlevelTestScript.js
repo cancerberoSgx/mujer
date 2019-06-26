@@ -1,5 +1,5 @@
 
-var {magickLoaded} = require('../src/node_magick_load_listener')
+var {magickLoaded} = require('../../src/magickLoaded')
 
 magickLoaded.then(({FS, main})=>{
   const format = getImageFormat({FS, main, fileName: 'n.png', fileContent: readFileSync('test/assets/n.png')})

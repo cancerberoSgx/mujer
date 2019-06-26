@@ -1,6 +1,5 @@
-// (function listen(){
-// })()
 const {Deferred} = require('./deferred')
+
 module.exports.magickLoaded = new Deferred()
 
 const stdout = []
@@ -24,6 +23,7 @@ module.exports.resetStderr = function(s){
 module.exports.getStderr = function(){
   return stderr.slice()
 }
+
 setTimeout(function(){
   require('../rotate/node_magick')
 }, 0);
