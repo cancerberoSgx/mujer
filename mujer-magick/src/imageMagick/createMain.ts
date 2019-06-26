@@ -20,7 +20,7 @@ export function createMain(Module: any): NativeMain {
   }
 }
 
-export type NativeMain = (args: string[]) =>NativeResult
+export type NativeMain = (args: string[]) => NativeResult
 
 export interface NativeResult {
   returnValue: any

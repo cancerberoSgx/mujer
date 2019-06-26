@@ -1,11 +1,11 @@
 import { Deferred } from 'misc-utils-of-mine-generic'
-import { getOptions } from '../options';
-import { FS } from '../emscriptenFs';
-import { NativeMain } from './createMain';
+import { FS } from '../emscriptenFs'
+import { getOptions } from '../options'
+import { NativeMain } from './createMain'
 
-export interface Main{
-  main: NativeMain, 
-  FS:FS
+export interface Main {
+  main: NativeMain,
+  FS: FS
 }
 
 export const magickLoaded = new Deferred<Main>()

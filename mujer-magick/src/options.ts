@@ -5,7 +5,7 @@ export interface Options {
   emscriptenNodeFsRoot: string
 }
 
-let options:Options = {
+let options: Options = {
   localNodeFsRoot: './working_tmp',
   emscriptenNodeFsRoot: '/w2',
   debug: true,
@@ -13,9 +13,9 @@ let options:Options = {
 export function getOptions() {
   return options
 }
-export function getOption(k:keyof Options) {
-  return options[k]||undefined
+export function getOption(k: keyof Options) {
+  return options[k] || undefined
 }
 export function setOptions(o: Partial<Options>) {
-  options = {...options, ...o}
+  options = { ...options, ...o }
 }
