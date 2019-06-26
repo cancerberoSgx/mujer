@@ -56,10 +56,17 @@ function printHelp() {
   console.log(`
 Usage: 
 
-mujer-magick convert folder/foo.png -scale 30% out.gif
+magica --command "identify n.png" --input test/assets/n.png 
+magica --input test/assets/n.png --command "convert n.png -scale 44% dest/tmp.gif"
+
 Options:
 
-
+  --input: string[]: Input file paths. It can also be glob patterns. For passing more than one use --input multiple times. It's important that the base name of these paths match the file names given in the command.
+  --command: string | string[]: An ImageMagick command, for example: "convert foo.png -scale 50% bar.gif".
+  --localNodeFsRoot?: string:
+  --emscriptenNodeFsRoot?: string:
+  --help?: boolean: (command line only)
+  --debug?: boolean:
 
 `)
 }

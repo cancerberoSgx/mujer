@@ -11,6 +11,7 @@ Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Inte
 - [Install](#install)
 - [Command line](#command-line)
 - [JavaScript API](#javascript-api)
+- [Options](#options)
 - [TODO](#todo)
 
 <!-- tocstop -->
@@ -60,7 +61,7 @@ magica --input test/assets/n.png --command "convert n.png -scale 44% tmp.gif"
 
 `--input` can be a glob of files, useful for batch multiple images or to build gifs from several images. 
 
-TODO example
+TODO example with globs and gifs
 
 ## JavaScript API
 
@@ -85,6 +86,18 @@ import { readFileSync, writeFileSync } from 'fs'
 The following example is analog to the previous one but in the browser: 
 
 TODO
+
+## Options
+
+Options are the same for the command line and the API:
+
+ * `--input: string[]`: (command line only) Input file paths. It can also be glob patterns. For passing more than one use `--input` multiple times. It's important that the base name of these paths match the file names given in the command.
+ * `--command: string | string[]`: An ImageMagick command, for example: `"convert foo.png -scale 50% bar.gif"`.
+ * `--inputFiles?: File[]`: (API only) The list of input files referenced in given command. It's important that the name of this files match the file names given in the command.
+ * `--localNodeFsRoot?: string`:
+ * `--emscriptenNodeFsRoot?: string`:
+ * `--help?: boolean`: (command line only)
+ * `--debug?: boolean`:
 
 ## TODO
 

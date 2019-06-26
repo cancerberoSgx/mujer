@@ -1,6 +1,6 @@
 {
   "name": "magica",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easy/Quickly use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -49,7 +49,7 @@
     "Command Line",
     "image processing",
     "image format",
-    "library", 
+    "library",
     "typescript"
   ],
   "author": {
