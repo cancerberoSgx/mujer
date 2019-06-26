@@ -1,0 +1,12 @@
+node_modules
+dist
+.cache
+docs
+.DS_Store
+*.tgz
+.nyc_output
+coverage
+/package
+.vscode
+test-browser-outdir
+tmp*

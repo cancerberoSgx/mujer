@@ -1,13 +1,8 @@
 # Mujer
 
-Practical tools for vector graphics:
- * High level - easy to use
- * APIs for Node.js and Browser
- * Command line tools
- * Optimization
- * Transformations
- * Format conversion
- * more to come
+
+
+# Contents
 
 <!-- toc -->
 
@@ -24,6 +19,17 @@ Practical tools for vector graphics:
     + [API](#api-2)
 
 <!-- tocstop -->
+
+# Summary
+
+Practical tools for vector graphics:
+ * High level - easy to use
+ * APIs for Node.js and Browser
+ * Command line tools
+ * Optimization
+ * Transformations
+ * Format conversion
+ * more to come...
 
 # Install
 
@@ -107,3 +113,6 @@ writeFileSync('test2_simplified.svg', output)
 document.getElementById('svg-container').innerHTML = output
 ```
 
+# TODO / Status / Roadmap
+
+- [ ] Command line

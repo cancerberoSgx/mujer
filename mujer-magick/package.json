@@ -1,13 +1,11 @@
 {
-  "name": "mujer",
-  "version": "0.0.2",
-  "description": "Practical SVG processing tools for optimize, transform, format conversion, and more, supporting node.js, browser and CLI.",
+  "name": "mujer-magick",
+  "version": "0.0.1",
+  "description": "Easy/Quickly  to use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "bin": {
-    "svg2pdf": "bin/svg2pdf.js",
-    "simplifyPaths": "bin/simplifyPaths.js",
-    "optimizeSvg": "bin/optimizeSvg.js"
+    "mujer-magick": "bin/mujer-magick.js"
   },
   "scripts": {
     "test": "npm run build && ava",
@@ -28,16 +26,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "misc-utils-of-mine-generic": "^0.2.10",
-    "paper": "^0.12.2",
-    "paper-jsdom": "^0.12.2",
-    "paper-jsdom-canvas": "^0.12.2",
-    "svgo": "github:cancerberosgx/svgo",
-    "tiny-worker": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^12.0.10",
-    "@types/paper": "^0.11.14",
     "ava": "^2.1.0",
     "babel-polyfill": "^6.26.0",
     "markdown-toc": "^1.2.0",
