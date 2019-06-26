@@ -3,6 +3,7 @@
 var { magickLoaded } = require('../../')
 const { readFileSync } = require('fs')
 
+
 magickLoaded.then(({ FS, main }) => {
   const format = getImageFormat({ FS, main, fileName: 'n.png', fileContent: readFileSync('test/assets/n.png') })
   process.stdout.write('The format is: ' + format+'\n');

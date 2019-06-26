@@ -10,3 +10,4 @@ coverage
 .vscode
 test-browser-outdir
 tmp*
+working_tmp

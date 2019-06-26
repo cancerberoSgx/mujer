@@ -25,5 +25,10 @@ export function getStderr(){
 }
 
 setTimeout(function(){
+  (global as any).nodeMagickConfig = {
+    localNodeFsRoot : 'working_tmp',
+    emscriptenNodeFsRoot : '/w2',
+    debug : false,
+  }
   require('./compiled/nodeMagick')
 }, 0);

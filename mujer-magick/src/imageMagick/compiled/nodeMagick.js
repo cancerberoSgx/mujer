@@ -2,17 +2,33 @@
 
 const { magickLoaded, pushStdout, pushStderr } = require('../magickLoaded')
 
+const  {
+  localNodeFsRoot = 'working_tmp',
+  emscriptenNodeFsRoot = '/w2',
+  debug = false,
+} = typeof global.nodeMagickConfig!=='undefined' ? global.nodeMagickConfig : {}
+
 Module = typeof Module === 'undefined' ? {} : Module
 
 Object.assign(Module, {
   'noInitialRun': true,  // tell wasm runner to not execute application
   'print': function (text) {
-    // console.log(`>> stdout >> ${text}`); 
+    debug && console.log(`>> stdout >> ${text}`); 
     pushStdout(text)
   },
   'printErr': function (text) {
-    //  console.log(`>> stderr >> ${text}`); 
+    debug && console.log(`>> stderr >> ${text}`); 
     pushStderr(text)
+  },
+  preRun: function(){
+    // mount NODEFS to use system filesystem instead memory
+    if(!require('fs').existsSync(localNodeFsRoot)){
+      require('fs').mkdirSync(localNodeFsRoot, {recursive: true})
+    }
+    FS.mkdir(emscriptenNodeFsRoot);
+    debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
+    FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
+    FS.writeFile(`${emscriptenNodeFsRoot}/readme.txt`, 'This folder was created by mujer-magick to store input and output images, it can be safely removed')
   }
 })
 
