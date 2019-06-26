@@ -14,6 +14,7 @@
   },
   "include": [
     "src", "test"
+    // , "node_modules/@types/emscripten/"
   ],
   "exclude": [
     "node_modules", "dist"

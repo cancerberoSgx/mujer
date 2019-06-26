@@ -1,34 +1,37 @@
-import {Deferred} from 'misc-utils-of-mine-generic'
+import { Deferred } from 'misc-utils-of-mine-generic'
+import { getOptions } from '../options';
+import { FS } from '../emscriptenFs';
 
-export const magickLoaded = new Deferred()
+export interface Main{
+  main: (...args: any[])=>any, 
+  FS:FS
+}
+
+export const magickLoaded = new Deferred<Main>()
 
 const stdout: string[] = []
-export function pushStdout(s: string){
+export function pushStdout(s: string) {
   stdout.push(s)
 }
-export function resetStdout(){
+export function resetStdout() {
   stdout.length = 0
 }
-export function getStdout(){
+export function getStdout() {
   return stdout.slice()
 }
 
 const stderr: string[] = []
-export function pushStderr(s: string){
+export function pushStderr(s: string) {
   stderr.push(s)
 }
-export function resetStderr(){
+export function resetStderr() {
   stderr.length = 0
 }
-export function getStderr(){
+export function getStderr() {
   return stderr.slice()
 }
 
-setTimeout(function(){
-  (global as any).nodeMagickConfig = {
-    localNodeFsRoot : 'working_tmp',
-    emscriptenNodeFsRoot : '/w2',
-    debug : false,
-  }
+setTimeout(function() {
+  (global as any).nodeMagickOptions = getOptions()
   require('./compiled/nodeMagick')
-}, 0);
+}, 0)

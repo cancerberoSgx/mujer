@@ -30,6 +30,7 @@
     "misc-utils-of-mine-generic": "^0.2.10"
   },
   "devDependencies": {
+    "@types/emscripten": "0.0.32",
     "@types/node": "^12.0.10",
     "ava": "^2.1.0",
     "babel-polyfill": "^6.26.0",

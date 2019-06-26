@@ -1,1 +1,1 @@
-export {magickLoaded} from './imageMagick/magickLoaded'
+export { magickLoaded } from './imageMagick/magickLoaded'
