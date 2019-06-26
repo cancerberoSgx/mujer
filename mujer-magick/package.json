@@ -1,11 +1,11 @@
 {
-  "name": "mujer-magick",
+  "name": "magica",
   "version": "0.0.1",
   "description": "Easy/Quickly  to use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "bin": {
-    "mujer-magick": "bin/mujer-magick.js"
+    "magica": "bin/magica.js"
   },
   "scripts": {
     "test": "npm run build && ava",
@@ -27,7 +27,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "misc-utils-of-mine-generic": "^0.2.10"
+    "misc-utils-of-mine-generic": "^0.2.10",
+    "glob": "^7.1.4",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
     "@types/emscripten": "0.0.32",

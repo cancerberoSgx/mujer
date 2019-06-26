@@ -1,5 +1,5 @@
 import { basename, pathJoin } from 'misc-utils-of-mine-generic'
-import { FS } from '../emscriptenFs';
+import { FS } from '../emscriptenFs'
 
 interface Options {
   /**
@@ -21,21 +21,21 @@ interface Options {
 }
 
 export interface LsRVisitorFile {
-   path: string,
-   isDir: boolean 
-  }
+  path: string,
+  isDir: boolean
+}
 
 export function lsR(o: Options) {
-  const result : LsRVisitorFile[] = []
-  function recurse(f: string):boolean {
-    if(!o.isDir(f)){
-      o.visitor({path: f, isDir: false})
+  const result: LsRVisitorFile[] = []
+  function recurse(f: string): boolean {
+    if (!o.isDir(f)) {
+      o.visitor({ path: f, isDir: false })
       return true
     }
     return o.ls(f).map(c => pathJoin(f, basename(c))).some(path => {
       const f = { path, isDir: o.isDir(path) }
       result.push(f)
-      if(o.visitor(f)){
+      if (o.visitor(f)) {
         return true
       }
       else if (f.isDir) {
@@ -50,12 +50,11 @@ export function lsR(o: Options) {
   return result
 }
 
-
-export function listFilesRecursively(path: string,FS: FS) {
+export function listFilesRecursively(path: string, FS: FS) {
   return lsR({
     path,
     ls: FS.readdir,
     isDir: f => FS.isDir(FS.stat(f).mode),
     visitor: f => false
-  });
+  })
 }

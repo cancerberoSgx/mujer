@@ -1,21 +1,16 @@
+import { NativeOptions } from './types';
 
-export interface Options {
-  localNodeFsRoot: string
-  debug: boolean,
-  emscriptenNodeFsRoot: string
-}
-
-let options: Options = {
+let options: Required<NativeOptions> = {
   localNodeFsRoot: './working_tmp',
   emscriptenNodeFsRoot: '/w2',
-  debug: true,
+  debug: false,
 }
 export function getOptions() {
   return options
 }
-export function getOption(k: keyof Options) {
+export function getOption(k: keyof NativeOptions) {
   return options[k] || undefined
 }
-export function setOptions(o: Partial<Options>) {
+export function setOptions(o: Partial<NativeOptions>) {
   options = { ...options, ...o }
 }

@@ -1,16 +1,94 @@
 # Mujer Magick
 
-Easy/Quickly  to use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.
+## Contents
 
-It includes wasm binaries from [wasm-imagemagick](https://github.com/KnicKnic/WASM-ImageMagick) so with just npm install you are ready to go. 
+<!-- toc -->
 
-Status
+- [Summary](#summary)
+- [Why](#why)
+- [Usage](#usage)
+- [TODO](#todo)
+
+<!-- tocstop -->
+
+## Summary
+
+ * Easy/Quickly setup of WASM-ImageMagick on node.js
+ * JavaScript API and command line interface.
+ * It includes wasm binaries from [wasm-imagemagick](https://github.com/KnicKnic/WASM-ImageMagick) no setup is needed further than `npm install`.
+
+##  Why
 
 I really need a node.js command line interface quickly so That's is why I'm doing this. 
 
 magick files can be generated from that project executing npm run test-node
 
+## Install
+
+```sh
+npm install magica
+```
+
+If you only will use the Command Line Interface perhaps a better option is installing it globally:
+
+```sh
+npm install -g magica
+```
+
+## Command line
+
+The command line interface will let you use the same Image Magick commands. The only difference is that you will need to explicitly list the input files paths. 
+
+In the following example we execute `identify n.png`:
+
+```sh
+$ magica --command "identify n.png" --input test/assets/n.png 
+n.png PNG 109x145 109x145+0+0 8-bit sRGB 39796B 0.000u 0:00.000
+```
+
+Notice that besides passing the ImageMagick command with `--command` we also passed the image files using `--input`. It is important that the basename of gicen input files match the file names referenced in the command (`n.png`): 
+
+Some other examples: 
+
+```sh
+magica --input test/assets/n.png --command "convert n.png -scale 44% tmp.gif"
+```
+
+`--input` can be a glob of files, useful for batch multiple images or to build gifs from several images. 
+
+TODO example
+
+## JavaScript API
+
+The JavaScript API is equivalent to the Command Line Interface. The command references files that are passed separately. Since this library supports both Node.js and the browser, users are responsible of providing the input file contents. 
+
+In the following example we convert an image in Node.js
+
+```ts
+import {main} from 'magica'
+import { readFileSync, writeFileSync } from 'fs'
+
+(async ()=>{
+ const result = await main({
+    debug: true,
+    command: 'convert foo.png -scale 50% foo2.png',
+    inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
+  })
+  result.outputFiles.forEach(f=>writeFileSync(f.name, f.content, {encoding: 'binary'}))
+})()
+```
+
+The following example is analog to the previous one but in the browser: 
+
+TODO
 
 ## TODO
 
-- [ ] npm test js is failing
+- [ ] npm run test-js is failing
+- [ ] browser
+- [ ] browser tests
+- [x] CLI
+- [ ] CLI tests
+- [ ] support IM command quoted arguments
+- [ ] Option to never remove files.
+- [ ] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there

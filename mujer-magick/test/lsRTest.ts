@@ -8,7 +8,7 @@ test('simple', async t => {
     path: __dirname,
     isDir: f => statSync(f).isDirectory(),
     ls: readdirSync,
-    visitor: o => !!r.push(o)&&false
+    visitor: o => !!r.push(o) && false
   })
   t.false(r.find(f => __filename.includes(f.path))!.isDir)
   t.false(result.find(f => __filename.includes(f.path))!.isDir)
