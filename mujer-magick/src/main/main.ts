@@ -1,12 +1,12 @@
 import { notUndefined, objectKeys } from 'misc-utils-of-mine-generic'
 import { magickLoaded } from '../imageMagick/magickLoaded'
 import { getOptions, setOptions } from '../options'
+import { MainOptions, MainResult, NativeOptions } from '../types'
 import { listFilesRecursively } from '../util/lsR'
 import { mkdirp } from '../util/mkdirp'
 import { rmRf } from '../util/rmRf'
 import { getFileDir } from '../util/util'
-import { File, MainOptions, MainResult, NativeOptions } from '../types'
-import { processCommand } from './processCommand';
+import { processCommand } from './processCommand'
 
 export async function main(o: MainOptions): Promise<MainResult> {
   // set options that user might given
@@ -20,13 +20,13 @@ export async function main(o: MainOptions): Promise<MainResult> {
 
   FS.chdir(emscriptenNodeFsRoot)
 
- ; (o.inputFiles||[]).forEach(f => {
-    const dirName = getFileDir(f.name)
-    if (dirName.trim()) {
-      mkdirp(dirName, (p: string) => FS.analyzePath(p).exists, FS.mkdir)
-    }
-    FS.writeFile(f.name, f.content)
-  })
+    ; (o.inputFiles || []).forEach(f => {
+      const dirName = getFileDir(f.name)
+      if (dirName.trim()) {
+        mkdirp(dirName, (p: string) => FS.analyzePath(p).exists, FS.mkdir)
+      }
+      FS.writeFile(f.name, f.content)
+    })
 
   const beforeTree = listFilesRecursively('.', FS)
 

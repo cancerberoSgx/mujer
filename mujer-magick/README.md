@@ -1,4 +1,6 @@
-# Mujer Magick
+# Magica
+
+Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Interface. 
 
 ## Contents
 
@@ -6,7 +8,9 @@
 
 - [Summary](#summary)
 - [Why](#why)
-- [Usage](#usage)
+- [Install](#install)
+- [Command line](#command-line)
+- [JavaScript API](#javascript-api)
 - [TODO](#todo)
 
 <!-- tocstop -->
@@ -15,7 +19,7 @@
 
  * Easy/Quickly setup of WASM-ImageMagick on node.js
  * JavaScript API and command line interface.
- * It includes wasm binaries from [wasm-imagemagick](https://github.com/KnicKnic/WASM-ImageMagick) no setup is needed further than `npm install`.
+ * Based on [wasm-imagemagick](https://github.com/KnicKnic/WASM-ImageMagick) from which includes binaries so no setup is needed further than `npm install`.
 
 ##  Why
 
@@ -46,7 +50,7 @@ $ magica --command "identify n.png" --input test/assets/n.png
 n.png PNG 109x145 109x145+0+0 8-bit sRGB 39796B 0.000u 0:00.000
 ```
 
-Notice that besides passing the ImageMagick command with `--command` we also passed the image files using `--input`. It is important that the basename of gicen input files match the file names referenced in the command (`n.png`): 
+Notice that besides passing the ImageMagick command with `--command` we also passed the image files using `--input`. It is important that the basename of given input files match the file names referenced in the command (`n.png`): 
 
 Some other examples: 
 

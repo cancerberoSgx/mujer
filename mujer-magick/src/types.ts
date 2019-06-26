@@ -1,4 +1,4 @@
-import { NativeResult } from './imageMagick/createMain';
+import { NativeResult } from './imageMagick/createMain'
 
 export interface File {
   name: string;
@@ -18,7 +18,7 @@ export interface MainOptions extends NativeOptions {
   /**
    * An ImageMagick command, for example: `['convert', 'foo/bar.png', '-scale', '50%', 'out.gif']`
    */
-  command: string|string[]
+  command: string | string[]
   /**
    * The list of input files referenced in given [[command]]. It's important that the name of this files match the file names given in the command.
    */

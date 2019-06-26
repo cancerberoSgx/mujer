@@ -1,4 +1,4 @@
-import { NativeOptions } from './types';
+import { NativeOptions } from './types'
 
 let options: Required<NativeOptions> = {
   localNodeFsRoot: './working_tmp',
