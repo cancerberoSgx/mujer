@@ -1,4 +1,4 @@
-import { notUndefined, objectKeys, pathJoin } from 'misc-utils-of-mine-generic'
+import { notUndefined, objectKeys } from 'misc-utils-of-mine-generic'
 import { NativeResult } from '../imageMagick/createMain'
 import { magickLoaded } from '../imageMagick/magickLoaded'
 import { getOptions, Options, setOptions } from '../options'

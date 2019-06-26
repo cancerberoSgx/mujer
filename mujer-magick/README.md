@@ -9,3 +9,8 @@ Status
 I really need a node.js command line interface quickly so That's is why I'm doing this. 
 
 magick files can be generated from that project executing npm run test-node
+
+
+## TODO
+
+- [ ] npm test js is failing

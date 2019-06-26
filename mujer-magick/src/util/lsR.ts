@@ -1,6 +1,9 @@
-import { pathJoin, basename } from 'misc-utils-of-mine-generic';
+import { basename, pathJoin } from 'misc-utils-of-mine-generic'
 
 interface Options {
+  /**
+   * Folder path to list files.
+   */
   path: string
   /**
    * list files in given folder. Returns children files and folders base names.
@@ -15,15 +18,32 @@ interface Options {
    */
   visitor: (f: LsRVisitorFile) => boolean
 }
-export interface LsRVisitorFile{ path: string, isDir: boolean }
+
+export interface LsRVisitorFile {
+   path: string,
+   isDir: boolean 
+  }
+
 export function lsR(o: Options) {
-  function recurse(f: string) {
-    o.ls(f).map(c =>  pathJoin(f, basename(c))).forEach(path => {
-      const isDir = o.isDir(path)
-      if (!o.visitor({ path, isDir }) && isDir) {
-        recurse(path)
+  const result : LsRVisitorFile[] = []
+  function recurse(f: string):boolean {
+    if(!o.isDir(f)){
+      return true
+    }
+    return o.ls(f).map(c => pathJoin(f, basename(c))).some(path => {
+      const f = { path, isDir: o.isDir(path) }
+      result.push(f)
+      if(o.visitor(f)){
+        return true
+      }
+      else if (f.isDir) {
+        return recurse(path)
+      }
+      else {
+        return false
       }
     })
   }
   recurse(o.path)
+  return result
 }
