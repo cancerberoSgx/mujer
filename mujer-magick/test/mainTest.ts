@@ -2,7 +2,7 @@ import test from 'ava'
 import { readFileSync } from 'fs'
 import { main } from '../src/main/main'
 
-test('main basic', async t => {
+test('stdout', async t => {
   const result = await main({
     commands: ['identify', 'foo.png'],
     inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
@@ -12,14 +12,6 @@ test('main basic', async t => {
   t.falsy(result.error)
 })
 
+test.todo('output files')
 test.todo('incorrect IM command')
-
-// ;
-// (async t => {
-//   const result = await main({
-//     commands: ['identify', 'foo.png'],
-//     inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png')}]
-//   })
-//   console.log(result);
-//   // t.true(false)
-// })()
+test.todo('paths with folders convert foo/bar/p.png')
