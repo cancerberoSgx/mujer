@@ -1,11 +1,11 @@
 //@ts-nocheck
 
-var { magickLoaded } = require('../src/')
+var { magickLoaded } = require('../../')
 const { readFileSync } = require('fs')
 
 
 magickLoaded.then(({ FS, main }) => {
-  // console.log(FS.analyzePath('/etc').exists);
+  console.log(FS.analyzePath('/etc'));
   
   const format = getImageFormat({ FS, main, fileName: 'n.png', fileContent: readFileSync('test/assets/n.png') })
   process.stdout.write('The format is: ' + format+'\n');

@@ -28,7 +28,7 @@ Object.assign(Module, {
     FS.mkdir(emscriptenNodeFsRoot);
     debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
     FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
-    FS.writeFile(`${emscriptenNodeFsRoot}/readme.txt`, 'This folder was created by mujer-magick to store input and output images, it can be safely removed')
+    // FS.writeFile(`${emscriptenNodeFsRoot}/readme.txt`, 'This folder was created by mujer-magick to store input and output images, it can be safely removed')
   }
 })
 

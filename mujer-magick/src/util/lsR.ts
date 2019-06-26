@@ -1,4 +1,5 @@
 import { basename, pathJoin } from 'misc-utils-of-mine-generic'
+import { FS } from '../emscriptenFs';
 
 interface Options {
   /**
@@ -28,6 +29,7 @@ export function lsR(o: Options) {
   const result : LsRVisitorFile[] = []
   function recurse(f: string):boolean {
     if(!o.isDir(f)){
+      o.visitor({path: f, isDir: false})
       return true
     }
     return o.ls(f).map(c => pathJoin(f, basename(c))).some(path => {
@@ -46,4 +48,14 @@ export function lsR(o: Options) {
   }
   recurse(o.path)
   return result
+}
+
+
+export function listFilesRecursively(path: string,FS: FS) {
+  return lsR({
+    path,
+    ls: FS.readdir,
+    isDir: f => FS.isDir(FS.stat(f).mode),
+    visitor: f => false
+  });
 }
