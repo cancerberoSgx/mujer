@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-const { magickLoaded, pushStdout, pushStderr } = require('../src/magickLoaded')
+const { magickLoaded, pushStdout, pushStderr } = require('../magickLoaded')
 
 Module = typeof Module === 'undefined' ? {} : Module
 
@@ -18,7 +18,7 @@ Object.assign(Module, {
 
 Module.onRuntimeInitialized = function () {
   magickLoaded.resolve({
-    FS, main: require('../src/main').createMain(Module)
+    FS, main: require('../createMain').createMain(Module)
   })
 }
 

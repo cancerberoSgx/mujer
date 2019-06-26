@@ -1,8 +1,8 @@
-const { magickLoaded, pushStdout, resetStdout, getStdout, pushStderr, resetStderr, getStderr } = require('./magickLoaded')
+import { getStderr, getStdout, resetStderr, resetStdout } from './magickLoaded';
 
 
-module.exports.createMain = function(Module){
-  return function main(...args) {
+module.exports.createMain = function(Module: any){
+  return function main(...args: any[]) {
     resetStdout()
     resetStderr()
     const returnValue = Module.callMain(...args)
