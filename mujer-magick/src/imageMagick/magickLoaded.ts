@@ -36,7 +36,7 @@ setTimeout(function() {
   (global as any).nodeMagickOptions = getOptions()
   try {
     require('./compiled/nodeMagick')
-    
+
   } catch (error) {
     console.error(error)
     throw error

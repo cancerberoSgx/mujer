@@ -2,7 +2,7 @@ import test from 'ava'
 import { readFileSync } from 'fs'
 import { basename } from 'misc-utils-of-mine-generic'
 import { main } from '../src/main/main'
-import fileType = require('file-type');
+import fileType = require('file-type')
 
 test('stdout', async t => {
   const result = await main({
@@ -21,7 +21,7 @@ test('output file names', async t => {
     inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
   })
   t.deepEqual(result.outputFiles.map(f => basename(f.name)), ['foo2.png'])
-  t.deepEqual(fileType (result.outputFiles[0].content), {ext: 'png', mime: 'image/png'})
+  t.deepEqual(fileType(result.outputFiles[0].content), { ext: 'png', mime: 'image/png' })
   t.falsy(result.error)
   t.deepEqual(result.stderr, [])
 })

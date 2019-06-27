@@ -15,11 +15,11 @@ export async function main(o: Partial<MainOptions>): Promise<MainResult> {
     .filter<any>(notUndefined)
     .forEach((k: keyof NativeOptions) => setOptions({ [k]: o[k] }))
 
-  const {  emscriptenNodeFsRoot } = getOptions()
+  const { emscriptenNodeFsRoot } = getOptions()
   const { FS, main } = await magickLoaded
 
   FS.chdir(emscriptenNodeFsRoot)
-  
+
     ; (o.inputFiles || []).forEach(f => {
       const dirName = getFileDir(f.name)
       if (dirName.trim()) {
@@ -39,7 +39,7 @@ export async function main(o: Partial<MainOptions>): Promise<MainResult> {
     name: f.path,
     content: FS.readFile(f.path)
   }))
-   !o.noRemove && ls(emscriptenNodeFsRoot, FS).forEach(f => rmRf(f, FS))
+  !o.noRemove && ls(emscriptenNodeFsRoot, FS).forEach(f => rmRf(f, FS))
 
   return {
     ...returnValue,

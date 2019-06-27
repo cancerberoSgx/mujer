@@ -1,20 +1,20 @@
 
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { sync as glob } from 'glob'
 import { asArray, basename, isString, pathJoin } from 'misc-utils-of-mine-generic'
 import { main } from '../main/main'
 import { processCommand } from '../main/processCommand'
+import { getOptions } from '../options'
 import { CliOptions } from '../types'
-import { getOptions } from '../options';
 
 export async function cli(options: CliOptions) {
   preconditions(options as any)
-  options = {...getOptions(), ...options}
+  options = { ...getOptions(), ...options }
 
   options.debug && console.log(`CLI Options: ${JSON.stringify({ ...options, input: null })}`)
 
   const inputPaths = asArray(options.input).filter(isString)
-    . map(f => glob(f)).flat().filter(existsSync)
+    .map(f => glob(f)).flat().filter(existsSync)
   const result = await main({
     // debug: true,
     command: processCommand(options.command),
@@ -28,10 +28,10 @@ export async function cli(options: CliOptions) {
   }
 
   (result.outputFiles || []).forEach(f => {
-    if(!existsSync(options.outputDir)){
-      mkdirSync(options.outputDir, {recursive: true})
+    if (!existsSync(options.outputDir)) {
+      mkdirSync(options.outputDir, { recursive: true })
     }
-    const outputName = pathJoin(options.outputDir, f.name.substring(options.emscriptenNodeFsRoot.length+1))
+    const outputName = pathJoin(options.outputDir, f.name.substring(options.emscriptenNodeFsRoot.length + 1))
     // const outputName = f.name.substring(options.emscriptenNodeFsRoot.length+1)
     options.debug && console.log('Writing output file', outputName)
     writeFileSync(outputName, f.content, { encoding: 'binary' })
