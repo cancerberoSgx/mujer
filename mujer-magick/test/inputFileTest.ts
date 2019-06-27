@@ -2,7 +2,7 @@ import test from 'ava'
 import fetch from 'node-fetch'
 import { InputFile } from '../src/file'
 import { main } from '../src/main/main'
-import fileType = require('file-type');
+import fileType = require('file-type')
 
 test('from url request', async t => {
   const url = 'https://cancerberosgx.github.io/demos/geometrizejs-cli/bridge.jpg'

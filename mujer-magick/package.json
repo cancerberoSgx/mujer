@@ -1,6 +1,6 @@
 {
   "name": "magica",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easy/Quickly use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -24,7 +24,7 @@
     "docs": "npm run docs-readme-toc",
     "docs-readme-toc": "npx markdown-toc README.md -i",
     "all": "npm run clean && npm run lint && npm run build && npm run test && npm run test-js && npm run test-browser && npm run docs",
-    "all-publish": "npm run all && git commit -a -m \"version patch\" && npm version patch && npm publish"
+    "all-publish": "npm run all && npm version patch && npm publish"
   },
   "license": "MIT",
   "dependencies": {
@@ -44,6 +44,7 @@
     "markdown-toc": "^1.2.0",
     "parcel": "^1.12.3",
     "puppeteer": "^1.18.1",
+    "ts-morph": "^2.3.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   },

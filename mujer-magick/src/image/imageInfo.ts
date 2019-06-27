@@ -1,6 +1,6 @@
-import { equal } from 'assert';
-import { main } from '../main/main';
-import { File } from '../types';
+import { equal } from 'assert'
+import { main } from '../main/main'
+import { File } from '../types'
 
 /**
  * Execute `convert $IMG info.json` to extract image metadata. Returns the parsed info.json file contents

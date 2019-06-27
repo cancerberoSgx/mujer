@@ -18,15 +18,15 @@ export async function main(o: Partial<MainOptions>): Promise<MainResult> {
   const { emscriptenNodeFsRoot } = getOptions()
   const { FS, main } = await magickLoaded
 
-  FS.chdir(emscriptenNodeFsRoot)
+  FS.chdir(emscriptenNodeFsRoot);
 
-    ; (o.inputFiles || []).forEach(f => {
-      const dirName = getFileDir(f.name)
-      if (dirName.trim()) {
-        mkdirp(dirName, p => FS.analyzePath(p).exists, FS.mkdir)
-      }
-      FS.writeFile(f.name, f.content)
-    })
+  (o.inputFiles || []).forEach(f => {
+    const dirName = getFileDir(f.name)
+    if (dirName.trim()) {
+      mkdirp(dirName, p => FS.analyzePath(p).exists, FS.mkdir)
+    }
+    FS.writeFile(f.name, f.content)
+  })
 
   const beforeTree = listFilesRecursively(emscriptenNodeFsRoot, FS)
 
