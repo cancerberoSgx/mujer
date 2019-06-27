@@ -1,10 +1,7 @@
 // @ts-nocheck
 
+const { magickLoaded, pushStdout, pushStderr, isNode } = require('../magickLoaded')
 
-const { magickLoaded, pushStdout, pushStderr } = require('../magickLoaded')
-function isNode() {
-  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined'
-}
 const {
   localNodeFsRoot = 'working_tmp',
   emscriptenNodeFsRoot = '/w2',

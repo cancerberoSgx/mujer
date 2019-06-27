@@ -36,3 +36,7 @@ setTimeout(function() {
   (global as any).nodeMagickOptions = getOptions()
   require('./compiled/nodeMagick')
 }, 0)
+
+export function isNode() {
+  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined'
+}

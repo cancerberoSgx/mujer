@@ -105,7 +105,9 @@ Options are the same for the command line and the API:
 - [ ] browser
 - [ ] browser tests
 - [x] CLI
-- [ ] CLI tests
+- [x] CLI tests
+- [x] Input file from url
 - [ ] support IM command quoted arguments
+- [ ] support input images from URLS both in node and browser.
 - [ ] Option to never remove files.
 - [ ] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
