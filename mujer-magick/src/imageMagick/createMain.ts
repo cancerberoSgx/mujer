@@ -1,6 +1,5 @@
 import { getStderr, getStdout, resetStderr, resetStdout } from './magickLoaded'
 
-
 export function createMain(Module: any): NativeMain {
   return function main(...args: any[]) {
     resetStdout()

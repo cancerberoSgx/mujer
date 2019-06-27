@@ -6,8 +6,18 @@ export interface File {
 }
 
 export interface NativeOptions extends BaseOptions {
-  localNodeFsRoot?: string
-  emscriptenNodeFsRoot?: string
+  /**
+   * (Node.js and CLI only). In Node.js the local file system will be used to read/write files instead of memory (like in the browser). This folder will be used for that, by default, ./working_tmp. IMPORTANT: the content of this folder will be removed each time the tool is executed.
+   */
+  nodeFsLocalRoot: string
+  /**
+   * Internal root FS directed path. This should rarely be configured by users.
+   */
+  emscriptenNodeFsRoot: string
+  /**
+   * (CLI only). Output files will be written in this folder. By default is current directory.
+   */
+  outputDir: string
 }
 
 interface BaseOptions {
@@ -15,6 +25,7 @@ interface BaseOptions {
 }
 
 export interface MainOptions extends NativeOptions {
+  noRemove?: boolean
   /**
    * An ImageMagick command, for example: `['convert', 'foo/bar.png', '-scale', '50%', 'out.gif']`
    */

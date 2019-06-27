@@ -3,7 +3,7 @@
 const { magickLoaded, pushStdout, pushStderr, isNode, preRunHandler } = require('../magickLoaded')
 
 const {
-  localNodeFsRoot = 'working_tmp',
+  nodeFsLocalRoot = 'working_tmp',
   emscriptenNodeFsRoot = '/w2',
   debug = false,
 } = typeof global.nodeMagickOptions !== 'undefined' ? global.nodeMagickOptions : {}
@@ -17,25 +17,22 @@ Object.assign(Module, {
     pushStdout(text)
   },
   printErr: function (text) {
-    debug && console.log(`>> stderr >> ${text}`);
+    debug && console.log(`>> stderr >> ${text}`)
     pushStderr(text)
   },
   preRun: function () {
-  debug && console.log('Emscripten Module.preRun')    
-    // preRunHandler(FS)
-    // FS.mkdir()
-     // if we are on node, mount NODEFS to use system's filesystem instead memory
-     FS.mkdir(emscriptenNodeFsRoot);
+  debug && console.log('Emscripten Module.preRun. isNode: ', isNode())
+  // if(!FS.isDir(FS.stat(emscriptenNodeFsRoot).mode)){
+    FS.mkdir(emscriptenNodeFsRoot)
+  // }
    if (isNode()) {
-    if (!require('f'+'s').existsSync(localNodeFsRoot)) {
-      require('f'+'s').mkdirSync(localNodeFsRoot, { recursive: true })
+    if (!require('f'+'s').existsSync(nodeFsLocalRoot)) {
+      require('f'+'s').mkdirSync(nodeFsLocalRoot, { recursive: true })
     }
-    debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
-    FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
+    debug && console.log(`Mounting local folder ${nodeFsLocalRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
+    FS.mount(NODEFS, { root: nodeFsLocalRoot }, emscriptenNodeFsRoot);
   }
-
   debug && console.log('Emscripten Module.preRun <-- exiting')    
-
   }
 })
 

@@ -34,14 +34,20 @@ export function getStderr() {
 
 setTimeout(function() {
   (global as any).nodeMagickOptions = getOptions()
-  require('./compiled/nodeMagick')
+  try {
+    require('./compiled/nodeMagick')
+    
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }, 0)
 
 export function isNode() {
-  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined' && (typeof document !== 'undefined' ? document.nodeType !== 9 : false)
+  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined' && (typeof document !== 'undefined' ? document.nodeType !== 9 : true)
 }
 
-export function preRunHandler(FS: FS) {
+// export function preRunHandler(FS: FS) {
   // const {localNodeFsRoot,emscriptenNodeFsRoot,debug } = getOptions()
   // if(!isDir(emscriptenNodeFsRoot,FS)){
   //   makeDirRecursive(emscriptenNodeFsRoot, FS)
@@ -55,7 +61,7 @@ export function preRunHandler(FS: FS) {
   //   debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
   //   FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
   // }
-}
+// }
 
 
 // function testFile(f:string, FS:FS){
