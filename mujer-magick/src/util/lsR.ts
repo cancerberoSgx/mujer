@@ -53,8 +53,12 @@ export function lsR(o: Options) {
 export function listFilesRecursively(path: string, FS: FS) {
   return lsR({
     path,
-    ls: FS.readdir,
+    ls: p=>ls(p, FS),
     isDir: f => FS.isDir(FS.stat(f).mode),
     visitor: f => false
   })
+}
+
+export function ls(p: string, FS:FS){
+  return (FS.readdir(p) as string[]).filter(s=>!['.', '..'].includes(s))
 }

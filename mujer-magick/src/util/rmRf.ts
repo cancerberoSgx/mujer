@@ -1,8 +1,9 @@
 import { FS } from '../emscriptenFs'
+import { ls } from './lsR';
 
 export function rmRf(f: string, FS: FS) {
   if (FS.isDir(FS.stat(f).mode)) {
-    (FS.readdir(f) as string[]).forEach(f => rmRf(f, FS))
+    ls(f, FS).forEach(f => rmRf(f, FS))
     FS.rmdir(f)
   }
   else {

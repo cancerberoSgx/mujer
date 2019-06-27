@@ -2,7 +2,7 @@ import { notUndefined, objectKeys } from 'misc-utils-of-mine-generic'
 import { magickLoaded } from '../imageMagick/magickLoaded'
 import { getOptions, setOptions } from '../options'
 import { MainOptions, MainResult, NativeOptions } from '../types'
-import { listFilesRecursively } from '../util/lsR'
+import { listFilesRecursively, ls } from '../util/lsR'
 import { mkdirp } from '../util/mkdirp'
 import { rmRf } from '../util/rmRf'
 import { getFileDir } from '../util/util'
@@ -19,7 +19,6 @@ export async function main(o: MainOptions): Promise<MainResult> {
   const { FS, main } = await magickLoaded
 
   FS.chdir(emscriptenNodeFsRoot)
-
     ; (o.inputFiles || []).forEach(f => {
       const dirName = getFileDir(f.name)
       if (dirName.trim()) {
@@ -28,23 +27,22 @@ export async function main(o: MainOptions): Promise<MainResult> {
       FS.writeFile(f.name, f.content)
     })
 
-  const beforeTree = listFilesRecursively('.', FS)
+  const beforeTree = listFilesRecursively(emscriptenNodeFsRoot, FS)
 
   let returnValue = main(processCommand(o.command))
 
-  const afterTree = listFilesRecursively('.', FS)
+  const afterTree = listFilesRecursively(emscriptenNodeFsRoot, FS)
 
   const diffTree = afterTree.filter(f => !beforeTree.find(b => b.path === f.path))
   const outputFiles = diffTree.map(f => ({
     name: f.path,
     content: FS.readFile(f.path)
-  }));
-  (FS.readdir(emscriptenNodeFsRoot) as string[]).forEach(f => rmRf(f, FS))
+  }))
+  ls(emscriptenNodeFsRoot, FS).forEach(f => rmRf(f, FS))
 
   return {
     ...returnValue,
     outputFiles
   }
 }
-
 

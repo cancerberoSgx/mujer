@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-const { magickLoaded, pushStdout, pushStderr, isNode } = require('../magickLoaded')
+const { magickLoaded, pushStdout, pushStderr, isNode, preRunHandler } = require('../magickLoaded')
 
 const {
   localNodeFsRoot = 'working_tmp',
@@ -11,29 +11,36 @@ const {
 Module = typeof Module === 'undefined' ? {} : Module
 
 Object.assign(Module, {
-  'noInitialRun': true,  // tell wasm runner to not execute application
-  'print': function (text) {
+  noInitialRun: true,  // tell wasm runner to not execute application
+  print: function (text) {
     debug && console.log(`>> stdout >> ${text}`);
     pushStdout(text)
   },
-  'printErr': function (text) {
+  printErr: function (text) {
     debug && console.log(`>> stderr >> ${text}`);
     pushStderr(text)
   },
   preRun: function () {
-    // if we are on node, mount NODEFS to use system's filesystem instead memory
-    if (isNode()) {
-      if (!require('f'+'s').existsSync(localNodeFsRoot)) {
-        require('f'+'s').mkdirSync(localNodeFsRoot, { recursive: true })
-      }
-      FS.mkdir(emscriptenNodeFsRoot);
-      debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
-      FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
+  debug && console.log('Emscripten Module.preRun')    
+    // preRunHandler(FS)
+    // FS.mkdir()
+     // if we are on node, mount NODEFS to use system's filesystem instead memory
+     FS.mkdir(emscriptenNodeFsRoot);
+   if (isNode()) {
+    if (!require('f'+'s').existsSync(localNodeFsRoot)) {
+      require('f'+'s').mkdirSync(localNodeFsRoot, { recursive: true })
     }
+    debug && console.log(`Mounting local folder ${localNodeFsRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
+    FS.mount(NODEFS, { root: localNodeFsRoot }, emscriptenNodeFsRoot);
+  }
+
+  debug && console.log('Emscripten Module.preRun <-- exiting')    
+
   }
 })
 
 Module.onRuntimeInitialized = function () {
+  debug && console.log('Emscripten Module.onRuntimeInitialized ')
   magickLoaded.resolve({
     FS, main: require('../createMain').createMain(Module)
   })

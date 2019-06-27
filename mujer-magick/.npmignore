@@ -40,3 +40,5 @@ render-dot
 svg-png-converter
 /tmp*
 .cache
+test-browser
+test-browser-outdir

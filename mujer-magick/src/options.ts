@@ -3,7 +3,7 @@ import { NativeOptions } from './types'
 let options: Required<NativeOptions> = {
   localNodeFsRoot: './working_tmp',
   emscriptenNodeFsRoot: '/w2',
-  debug: false,
+  debug: true,
 }
 export function getOptions() {
   return options

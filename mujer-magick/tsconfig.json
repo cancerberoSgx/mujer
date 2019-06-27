@@ -13,7 +13,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "src", "test"
+    "src", "test", "test-browser"
   ],
   "exclude": [
     "node_modules", "dist"

@@ -39,6 +39,11 @@ If you only will use the Command Line Interface perhaps a better option is insta
 ```sh
 npm install -g magica
 ```
+### Browser setup
+
+ * **IMPORTANT**: make sure `dist/src/imageMagick/compiled/magick.wasm` is located at the same folder of your .js bundle file.
+ * the rest of the files you can bundle with any technology like browserify, parcel, webpack etc.
+ * See npm script "browser-sample". Run "npm run browser-sample" and look samples at `test-browser/` file
 
 ## Command line
 
@@ -104,10 +109,12 @@ Options are the same for the command line and the API:
 - [ ] npm run test-js is failing
 - [ ] browser
 - [ ] browser tests
+- [ ] format test 
+- [ ] support IM command quoted arguments
+- [ ] support input images from URLS both in node and browser.
+- [ ] node.js : work directly in user's filesystem without copying to emc FS: 
+    * Option to never remove files.
+    * Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
 - [x] CLI
 - [x] CLI tests
 - [x] Input file from url
-- [ ] support IM command quoted arguments
-- [ ] support input images from URLS both in node and browser.
-- [ ] Option to never remove files.
-- [ ] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
