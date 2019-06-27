@@ -1,4 +1,4 @@
-import { FS } from '../emscriptenFs';
+import { FS } from '../emscriptenFs'
 
 export function mkdirp(path: string, exists: (f: string) => boolean, mkdir: (f: string) => any) {
   const folders = path.split('/')
@@ -15,6 +15,6 @@ export function mkdirp(path: string, exists: (f: string) => boolean, mkdir: (f: 
   f(0)
 }
 
-export function makeDirRecursive(p: string,FS:FS) {
+export function makeDirRecursive(p: string, FS: FS) {
   return mkdirp(p, p => FS.analyzePath(p).exists, FS.mkdir)
 } 

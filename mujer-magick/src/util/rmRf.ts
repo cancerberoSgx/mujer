@@ -1,5 +1,5 @@
 import { FS } from '../emscriptenFs'
-import { ls } from './lsR';
+import { ls } from './lsR'
 
 export function rmRf(f: string, FS: FS) {
   if (FS.isDir(FS.stat(f).mode)) {

@@ -2,8 +2,6 @@ import { Deferred } from 'misc-utils-of-mine-generic'
 import { FS } from '../emscriptenFs'
 import { getOptions } from '../options'
 import { NativeMain } from './createMain'
-import { mkdirp, makeDirRecursive } from '../util/mkdirp';
-import { isDir } from '../util/util';
 
 export interface Main {
   main: NativeMain,
@@ -40,10 +38,10 @@ setTimeout(function() {
 }, 0)
 
 export function isNode() {
-  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined'&&(typeof document!=='undefined'? document.nodeType!==9 : false)
+  return typeof process !== 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined' && (typeof document !== 'undefined' ? document.nodeType !== 9 : false)
 }
 
-export function preRunHandler(FS:FS){
+export function preRunHandler(FS: FS) {
   // const {localNodeFsRoot,emscriptenNodeFsRoot,debug } = getOptions()
   // if(!isDir(emscriptenNodeFsRoot,FS)){
   //   makeDirRecursive(emscriptenNodeFsRoot, FS)

@@ -9,6 +9,7 @@ Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Inte
 - [Summary](#summary)
 - [Why](#why)
 - [Install](#install)
+  * [Browser setup](#browser-setup)
 - [Command line](#command-line)
 - [JavaScript API](#javascript-api)
 - [Options](#options)
