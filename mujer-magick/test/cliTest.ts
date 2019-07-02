@@ -1,7 +1,7 @@
 import test from 'ava'
 import { execSync } from 'child_process'
 import fileType from 'file-type'
-import { existsSync, unlinkSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, unlinkSync } from 'fs'
 
 test('identify', async t => {
   const r = execSync('node bin/magica --input test/assets/n.png --command "identify n.png"')

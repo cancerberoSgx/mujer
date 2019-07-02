@@ -1,16 +1,13 @@
-import { main } from '../../src';
-import { InputFile } from '../../src/file';
-import { knownSupportedReadWriteImageFormats } from '../../src/image/support';
-import { serial, unique, basename } from 'misc-utils-of-mine-generic';
-import { assertEquals } from '../../test-browser/testUtil';
-import { equal, deepEqual, ok } from 'assert';
-import { copyFileSync, writeFileSync } from 'fs';
-import { setOptions } from '../../src/options';
+import { deepEqual, ok } from 'assert'
+import { serial, unique } from 'misc-utils-of-mine-generic'
+import { main } from '../../src'
+import { knownSupportedReadWriteImageFormats } from '../../src/image/support'
+import { setOptions } from '../../src/options'
 
 async function test() {
 
-  console.log(process.memoryUsage());
-  
+  console.log(process.memoryUsage())
+
   // HEADS UP, in node, with disabledNodeFs speed is 16 vs 26 because there are lots of small files written/read from fs, but memory consumtion is lot more:
   // {
   //   rss: 355467264,
@@ -18,14 +15,14 @@ async function test() {
   //   heapUsed: 98058064,
   //   external: 286843065
   // }
-  
+
   // {
   //   rss: 344264704,
   //   heapTotal: 126660608,
   //   heapUsed: 100813456,
   //   external: 281115650
   // }
-  setOptions({disableNodeFs: true})
+  setOptions({ disableNodeFs: true })
 
   try {
     await serial(knownSupportedReadWriteImageFormats.map(format => async () => {
@@ -118,19 +115,19 @@ async function test() {
     })
     )
   } catch (error) {
-    console.error(error);
+    console.error(error)
     ok(!error)
     // throw error
   }
-  console.log(process.memoryUsage());
-  
+  console.log(process.memoryUsage())
+
 }
 (async () => {
   console.time('total time')
   try {
     await test()
   } catch (error) {
-    console.error(error);
+    console.error(error)
     ok(!error)
     // throw error
   }
@@ -140,5 +137,5 @@ async function test() {
 
 
 export function assertIncludes(a: string, b: string) {
-  ok(a.includes(b), 'Expected "' + a + '" to includes "' + b + '"');
+  ok(a.includes(b), 'Expected "' + a + '" to includes "' + b + '"')
 }

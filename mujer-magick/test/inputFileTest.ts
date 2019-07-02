@@ -1,8 +1,8 @@
 import test from 'ava'
+import fetch from 'cross-fetch'
 import { InputFile } from '../src/file'
 import { main } from '../src/main/main'
 import fileType = require('file-type')
-import fetch from 'cross-fetch'
 
 test('from url request', async t => {
   const u = 'https://cancerberosgx.github.io/demos/geometrizejs-cli/bridge.jpg', o = {}
@@ -11,7 +11,7 @@ test('from url request', async t => {
 
   const result = await main({
     command: ['identify', 'bridge.jpg'],
-    inputFiles: [{ name: 'bridge.jpg', content: new Uint8Array( content) }]
+    inputFiles: [{ name: 'bridge.jpg', content: new Uint8Array(content) }]
   })
   t.deepEqual(result.stdout.join(''), 'bridge.jpg JPEG 500x333 500x333+0+0 8-bit sRGB 35527B 0.000u 0:00.000')
   t.deepEqual(result.stderr, [])

@@ -19,7 +19,10 @@ export interface NativeOptions extends BaseOptions {
    */
   outputDir: string
 
-  disableNodeFs?:boolean
+  /**
+   * Don't use system's filesystem in Node.js but memory filesystem (just like in the browser). This could be faster if read/write many images but consumes more memory.
+   */
+  disableNodeFs?: boolean
 }
 
 interface BaseOptions {
@@ -33,9 +36,9 @@ export interface MainOptions extends NativeOptions {
    */
   command: string | string[]
   /**
-   * The list of input files referenced in given [[command]]. It's important that the name of this files match the file names given in the command.
+   * The list of input files referenced in given [[command]]. It's important that the name of this files match the file names given in the command. If string and a file exists (node.js) then that file will be used. Otherwise it will be considered a url. In later cases, the filename will be the base name of file or url.
    */
-  inputFiles?: (string|File)[]
+  inputFiles?: (string | File)[]
   // /**
   //  * Because input files are copied to the working folder, By default, they are removed after command ends. If this option is true they won't. 
   //  */

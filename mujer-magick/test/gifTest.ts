@@ -1,6 +1,4 @@
 import test from 'ava'
-import { readFileSync } from 'fs';
-import { main } from '../src';
 
 test.skip('should be able to generate a gif animation', async t => {
   // const result = await main({

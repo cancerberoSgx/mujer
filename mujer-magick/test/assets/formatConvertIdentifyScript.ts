@@ -1,17 +1,14 @@
 // this is a copy of test/performance/perf1.ts
 
-import { main } from '../../src';
-import { InputFile } from '../../src/file';
-import { knownSupportedReadWriteImageFormats } from '../../src/image/support';
-import { serial, unique, basename } from 'misc-utils-of-mine-generic';
-import { assertEquals } from '../../test-browser/testUtil';
-import { equal, deepEqual, ok } from 'assert';
-import { copyFileSync, writeFileSync } from 'fs';
-import { setOptions } from '../../src/options';
+import { deepEqual, ok } from 'assert'
+import { serial, unique } from 'misc-utils-of-mine-generic'
+import { main } from '../../src'
+import { knownSupportedReadWriteImageFormats } from '../../src/image/support'
+import { setOptions } from '../../src/options'
 
 async function test() {
-  console.log(process.memoryUsage());
-  setOptions({disableNodeFs: true})
+  console.log(process.memoryUsage())
+  setOptions({ disableNodeFs: true })
   try {
     await serial(knownSupportedReadWriteImageFormats.map(format => async () => {
       try {
@@ -38,47 +35,47 @@ async function test() {
 
             await serial(
               knownSupportedReadWriteImageFormats
-              .filter(f => f !== format).map(format2 => async () => {
-                    try {
-                const command2 = `convert  ${outputFiles[0].name} -rotate 180 -scale 64x64! ${unique('tmp')}.${format2}`
-                let result2 = await main({
-                  command: command2,
-                  inputFiles: outputFiles,
-                  debug: true
-                })
-                deepEqual(result2.error, undefined)
-                deepEqual(result2.stderr.filter(s => !s.includes('UnableToOpenConfigureFile')), [])
-                const c = `identify  ${result2.outputFiles[0].name}`
+                .filter(f => f !== format).map(format2 => async () => {
+                  try {
+                    const command2 = `convert  ${outputFiles[0].name} -rotate 180 -scale 64x64! ${unique('tmp')}.${format2}`
+                    let result2 = await main({
+                      command: command2,
+                      inputFiles: outputFiles,
+                      debug: true
+                    })
+                    deepEqual(result2.error, undefined)
+                    deepEqual(result2.stderr.filter(s => !s.includes('UnableToOpenConfigureFile')), [])
+                    const c = `identify  ${result2.outputFiles[0].name}`
 
-                // tga/ico/otb to xcf convertion produces invalid output and identify fails silently  - no catch, no error, program ends abruptly - 
-                // TODO: does this happens in the real CLI
-                if(command2.includes('.tga -rotate')&&['.dcm', '.xcf'].find(s=>c.includes(s))||
-                command2.includes('.ico -rotate')&&['.dcm', '.xcf'].find(s=>c.includes(s))||
-                command2.includes('.otb -rotate')&&['.dcm', '.xcf'].find(s=>c.includes(s))
-                ){
-                  return
-                }
-                // console.log(c);
-                try{
-                result2 = await main({
-                  command: c,
-                  inputFiles: result2.outputFiles,
-                  debug: true
-                })
-                  ;
-                [format2, '64x64'].forEach(s => assertIncludes(result2.stdout.join('').toLowerCase(), s.toLowerCase()))
-                deepEqual(result2.error, undefined)
-                deepEqual(result2.stderr.filter(s => !s.includes('UnableToOpenConfigureFile')), [])
-              } catch (error) {
-                console.error('ERRRRRR', {error}, error);
-                ok(!error)
-              }
-                return result2
-              } catch (error) {
-                console.error(error);
-                ok(!error)
-              }
-              }))
+                    // tga/ico/otb to xcf convertion produces invalid output and identify fails silently  - no catch, no error, program ends abruptly - 
+                    // TODO: does this happens in the real CLI
+                    if (command2.includes('.tga -rotate') && ['.dcm', '.xcf'].find(s => c.includes(s)) ||
+                      command2.includes('.ico -rotate') && ['.dcm', '.xcf'].find(s => c.includes(s)) ||
+                      command2.includes('.otb -rotate') && ['.dcm', '.xcf'].find(s => c.includes(s))
+                    ) {
+                      return
+                    }
+                    // console.log(c);
+                    try {
+                      result2 = await main({
+                        command: c,
+                        inputFiles: result2.outputFiles,
+                        debug: true
+                      })
+                        ;
+                      [format2, '64x64'].forEach(s => assertIncludes(result2.stdout.join('').toLowerCase(), s.toLowerCase()))
+                      deepEqual(result2.error, undefined)
+                      deepEqual(result2.stderr.filter(s => !s.includes('UnableToOpenConfigureFile')), [])
+                    } catch (error) {
+                      console.error('ERRRRRR', { error }, error);
+                      ok(!error)
+                    }
+                    return result2
+                  } catch (error) {
+                    console.error(error);
+                    ok(!error)
+                  }
+                }))
             return result
 
           } catch (error) {
@@ -93,18 +90,18 @@ async function test() {
     })
     )
   } catch (error) {
-    console.error(error);
+    console.error(error)
     ok(!error)
   }
-  console.log(process.memoryUsage());
+  console.log(process.memoryUsage())
 
 }
 (async () => {
   console.time('total time')
-try {
+  try {
     await test()
   } catch (error) {
-    console.error(error);
+    console.error(error)
     ok(!error)
   }
   console.timeEnd('total time')
@@ -113,5 +110,5 @@ try {
 
 
 export function assertIncludes(a: string, b: string) {
-  ok(a.includes(b), 'Expected "' + a + '" to includes "' + b + '"');
+  ok(a.includes(b), 'Expected "' + a + '" to includes "' + b + '"')
 }

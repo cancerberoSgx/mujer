@@ -12,6 +12,8 @@ Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Inte
   * [Browser setup](#browser-setup)
 - [Command line](#command-line)
 - [JavaScript API](#javascript-api)
+  * [Node.js](#nodejs)
+  * [Browser](#browser)
 - [Options](#options)
 - [TODO](#todo)
 
@@ -23,11 +25,11 @@ Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Inte
  * JavaScript API and command line interface.
  * Based on [wasm-imagemagick](https://github.com/KnicKnic/WASM-ImageMagick) from which includes binaries so no setup is needed further than `npm install`.
 
-##  Why
+## Why
 
 I really need a node.js command line interface quickly so That's is why I'm doing this. 
 
-magick files can be generated from that project executing npm run test-node
+Don't want to be responsible of compiling .wasm, so I use wasm-imagemagick files directly. `src/imageMagick/compiled/` can be generated from that project executing `npm run test-node`
 
 ## Install
 
@@ -43,8 +45,9 @@ npm install -g magica
 ### Browser setup
 
  * **IMPORTANT**: make sure `dist/src/imageMagick/compiled/magick.wasm` is located at the same folder of your .js bundle file.
- * the rest of the files you can bundle with any technology like browserify, parcel, webpack etc.
+ * the rest of the files you can be bundled with any technology like browserify, parcel, webpack etc.
  * See npm script "browser-sample". Run "npm run browser-sample" and look samples at `test-browser/` file
+ * browser tests can be executed (run with puppeteer) with `npm run test-browser`
 
 ## Command line
 
@@ -73,6 +76,8 @@ TODO example with globs and gifs
 
 The JavaScript API is equivalent to the Command Line Interface. The command references files that are passed separately. Since this library supports both Node.js and the browser, users are responsible of providing the input file contents. 
 
+### Node.js
+
 In the following example we convert an image in Node.js
 
 ```ts
@@ -89,8 +94,9 @@ import { readFileSync, writeFileSync } from 'fs'
 })()
 ```
 
-The following example is analog to the previous one but in the browser: 
+### Browser 
 
+The following example is analog to the previous one but in the browser: 
 
 ```ts
 import {main} from 'magica'
@@ -101,9 +107,18 @@ import {main} from 'magica'
     command: 'convert bar.gif -scale 150% -rotate 45 foo.png',
     inputFiles: [ 'static/img/bar.gif' ]
   })
-  document.getElementById('img-foo').src = `data:image/png;base64,${btoa(String.fromCharCode(...result.outputFiles[0].content))}`
+  const dataUrl = btoa(String.fromCharCode(...result.outputFiles[0].content))
+  document.getElementById('img-foo').src = `data:image/png;base64,${dataUrl}`
 })()
 ```
+
+#### Web Worker
+
+Of course in the browser you will want to use a web-worker to process images. Just pass the command object as a message, execute `main()` in the worker and return back the result. 
+
+Both the command and result objects are designed to transfer data between main thread and worker optimally.
+
+See `test-browser/webWorker` for a working simple example.
 
 ## Options
 
@@ -111,22 +126,26 @@ Options are the same for the command line and the API:
 
  * `--input: string[]`: (command line only) Input file paths. It can also be glob patterns. For passing more than one use `--input` multiple times. It's important that the base name of these paths match the file names given in the command.
  * `--command: string | string[]`: An ImageMagick command, for example: `"convert foo.png -scale 50% bar.gif"`.
- * `--inputFiles?: File[]`: (API only) The list of input files referenced in given command. It's important that the name of this files match the file names given in the command.
+ * `--inputFiles?: string | string[]`: (API only) The list of input files referenced in given command. It's important that the name of this files match the file names given in the command. If string and a file exists (node.js) then that file will be used. Otherwise it will be considered a url. In later cases, the filename will be the base name of file or url.
  * `--localNodeFsRoot?: string`:
  * `--emscriptenNodeFsRoot?: string`:
  * `--help?: boolean`: (command line only)
  * `--debug?: boolean`:
+ * `disableNodeFs?: boolean`: (node.js only) Don't use system's filesystem in Node.js but memory filesystem (just like in the browser). This could be faster if read/write many images but consumes more memory.
 
 ## TODO
 
 - [ ] npm run test-js fails
 - [ ] support multiple line string commands like in src/main/command.ts
   - [ ] support IM command quoted arguments
-- [ ] webworker example & recipe
-- [ ] api should comply with using SharedArrayBuffer or Transferable for passing data to/from worker 
+- [ ] mkdir-p for output files
 - [ ] because options are global - sending commands concurrently could fail. Solution: queue or instance options
+- [ ] an easy to use API for web-workers
+- [ ] web worker example passing files (verify transferable/shared array buffers/optimal)
+- [ ] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
+- [ ] test from a real-app - check missing exported APIs - npm install usability
 - [ ] scripts/generateImEnumd.ts we should execute our CLI to extract 
-- [] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
+- [x] webworker example & recipe (see test-browser/webWorker)
 - [x] format tests
 - [x] Performance tests (can we measure also memory consumption?)
 - [x] browser tests
