@@ -1,20 +1,27 @@
-// import { readFileSync } from 'fs'
-// import { ls } from '../../src/main/aux'
-// import { main } from '../../src/main/main'
+import { serial } from 'misc-utils-of-mine-generic';
+import simpleConvert from './tests/simpleConvert';
+import simpleIdentify from './tests/simpleIdentify';
+import { assert } from './testUtil';
 
-// testLs()
-// testDebug()
-
-// async function testLs() {
-//   const result = await ls('.')
-//   console.log(result)
-// }
-
-// async function testDebug() {
-//   const result = await main({
-//     debug: true,
-//     command: ['convert', '-debug', 'User', 'foo.png', '-scale', '55', 'foo2.png'],
-//     inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
-//   })
-//   console.log(result)
-// }
+const all = [
+  simpleIdentify, 
+  simpleConvert
+]
+serial(all.map(test=>async ()=>{
+  // await test()
+   try {
+  await test()
+  // await sleep(50)   
+ } catch ( ex){
+   assert(false, ex.toString())
+   console.error(ex);   
+ }
+}))
+// all.forEach(async test=>{
+//  try {
+//   await test()
+//   await sleep(500)   
+//  } catch ( ex){
+//    assert(false, ex.toString())
+//  }
+// })

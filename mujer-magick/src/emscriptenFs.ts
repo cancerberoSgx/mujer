@@ -25,7 +25,7 @@ export interface FS {
 
   syncfs(populate: boolean, callback: (e: any) => any): void;
   syncfs(callback: (e: any) => any, populate?: boolean): void;
-  mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
+  mount(type: any, opts: any, mountpoint: string): any;
   unmount(mountpoint: string): void;
 
   mkdir(path: string, mode?: number): any;

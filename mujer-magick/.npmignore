@@ -14,7 +14,6 @@ test
 typescript-ast-query-editor
 formatCodeSettings.json
 .nyc_output
-cannabis-cli
 coverage
 test-browser-outdir
 guitarra
@@ -33,11 +32,8 @@ guides-probes-backups
 test-browser
 .travis.yml
 playground
-grammar-graph
 tmp.json
 .DS_Store
-render-dot
-svg-png-converter
 /tmp*
 .cache
 test-browser

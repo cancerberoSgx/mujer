@@ -108,7 +108,6 @@ Options are the same for the command line and the API:
 ## TODO
 
 - [ ] npm run test-js is failing
-- [ ] browser tests
 - [ ] format tests
 - [ ] support multiple line string commands like in src/main/command.ts
   - [ ] support IM command quoted arguments
@@ -117,6 +116,7 @@ Options are the same for the command line and the API:
     * Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
 - [ ] scripts/generateImEnumd.ts we should execute our CLI to extract 
 - [ ] Performance tests (can we measure also memory consumption?)
+- [x] browser tests
 - [x] support input images from URLS both in node and browser.
 - [x] browser
 - [x] CLI
