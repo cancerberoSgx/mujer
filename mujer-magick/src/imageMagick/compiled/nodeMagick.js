@@ -1,12 +1,9 @@
 // @ts-nocheck
 
-const { magickLoaded, pushStdout, pushStderr, isNode, preRunHandler } = require('../magickLoaded')
+const { magickLoaded, pushStdout, pushStderr, getOptions} = require('../magickLoaded')
+const {isNode} = require('misc-utils-of-mine-generic')
 
-const {
-  nodeFsLocalRoot = 'working_tmp',
-  emscriptenNodeFsRoot = '/w2',
-  debug = false,
-} = typeof global.nodeMagickOptions !== 'undefined' ? global.nodeMagickOptions : {}
+const {  nodeFsLocalRoot,  emscriptenNodeFsRoot,  debug}  = getOptions()
 
 Module = typeof Module === 'undefined' ? {} : Module
 
@@ -22,9 +19,7 @@ Object.assign(Module, {
   },
   preRun: function () {
   debug && console.log('Emscripten Module.preRun. isNode: ', isNode())
-  // if(!FS.isDir(FS.stat(emscriptenNodeFsRoot).mode)){
     FS.mkdir(emscriptenNodeFsRoot)
-  // }
    if (isNode()) {
     if (!require('f'+'s').existsSync(nodeFsLocalRoot)) {
       require('f'+'s').mkdirSync(nodeFsLocalRoot, { recursive: true })

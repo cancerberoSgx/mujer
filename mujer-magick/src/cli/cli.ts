@@ -2,8 +2,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { sync as glob } from 'glob'
 import { asArray, basename, isString, pathJoin } from 'misc-utils-of-mine-generic'
+import { processCommand } from '../main/command'
 import { main } from '../main/main'
-import { processCommand } from '../main/processCommand'
 import { getOptions } from '../options'
 import { CliOptions } from '../types'
 

@@ -1,17 +1,6 @@
-import { basename, getFileNameFromUrl, inBrowser } from 'misc-utils-of-mine-generic'
-import fetch, { RequestInit } from 'node-fetch'
-import { isNode } from './imageMagick/magickLoaded'
+import fetch from 'cross-fetch'
+import { basename, getFileNameFromUrl, isNode } from 'misc-utils-of-mine-generic'
 import { File } from './types'
-
-
-// const fetch = require('node-fetch')
-
-if (inBrowser()) {
-  // Heads up !, need to do this for browser
-  // @ts-ignore
-  // fetch = fetch.bind(window)//window.fetch.bind(window)
-  fetch = window.fetch.bind(window)
-}
 
 export class InputFile implements File {
 

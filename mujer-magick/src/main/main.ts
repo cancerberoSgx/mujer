@@ -6,7 +6,7 @@ import { listFilesRecursively, ls } from '../util/lsR'
 import { mkdirp } from '../util/mkdirp'
 import { rmRf } from '../util/rmRf'
 import { getFileDir } from '../util/util'
-import { processCommand } from './processCommand'
+import { processCommand } from './command'
 
 export async function main(o: Partial<MainOptions>): Promise<MainResult> {
   // set options that user might given
