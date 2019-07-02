@@ -14,6 +14,7 @@ Easy to setup and use, ImageMagick Node.js and Browser API and Command Line Inte
 - [JavaScript API](#javascript-api)
   * [Node.js](#nodejs)
   * [Browser](#browser)
+    + [Web Worker](#web-worker)
 - [Options](#options)
 - [TODO](#todo)
 
@@ -118,7 +119,7 @@ Of course in the browser you will want to use a web-worker to process images. Ju
 
 Both the command and result objects are designed to transfer data between main thread and worker optimally.
 
-See `test-browser/webWorker` for a working simple example.
+See `test-browser/webWorker` and `npm run test-worker` script for a working simple example.
 
 ## Options
 
@@ -144,7 +145,9 @@ Options are the same for the command line and the API:
 - [ ] web worker example passing files (verify transferable/shared array buffers/optimal)
 - [ ] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
 - [ ] test from a real-app - check missing exported APIs - npm install usability
+  - [ ] playground
 - [ ] scripts/generateImEnumd.ts we should execute our CLI to extract 
+- [ ] remove all logic from imageMagick/compiled/nodeMagick.js to separate.ts file
 - [x] webworker example & recipe (see test-browser/webWorker)
 - [x] format tests
 - [x] Performance tests (can we measure also memory consumption?)
