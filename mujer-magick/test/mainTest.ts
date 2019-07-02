@@ -21,7 +21,19 @@ test('output file names', async t => {
     inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
   })
   t.deepEqual(result.outputFiles.map(f => basename(f.name)), ['foo2.png'])
-  t.deepEqual(fileType(result.outputFiles[0].content), { ext: 'png', mime: 'image/png' })
+  t.deepEqual(fileType(result.outputFiles[0].content.buffer), { ext: 'png', mime: 'image/png' })
+  t.falsy(result.error)
+  t.deepEqual(result.stderr, [])
+})
+
+test('accept string input files, or urls', async t => {
+  const result = await main({
+    debug: true,
+    command: 'convert n.png -scale 50% foo2.png',
+    inputFiles: ['test/assets/n.png']
+  })
+  t.deepEqual(result.outputFiles.map(f => basename(f.name)), ['foo2.png'])
+  t.deepEqual(fileType(result.outputFiles[0].content.buffer), { ext: 'png', mime: 'image/png' })
   t.falsy(result.error)
   t.deepEqual(result.stderr, [])
 })

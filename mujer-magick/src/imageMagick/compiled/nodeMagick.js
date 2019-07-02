@@ -1,9 +1,9 @@
 // @ts-nocheck
 
-const { magickLoaded, pushStdout, pushStderr, getOptions} = require('../magickLoaded')
-const {isNode} = require('misc-utils-of-mine-generic')
+const { magickLoaded, pushStdout, pushStderr, getOptions } = require('../magickLoaded')
+const { isNode } = require('misc-utils-of-mine-generic')
 
-const {  nodeFsLocalRoot,  emscriptenNodeFsRoot,  debug}  = getOptions()
+const { nodeFsLocalRoot, emscriptenNodeFsRoot, debug, disableNodeFs } = getOptions()
 
 Module = typeof Module === 'undefined' ? {} : Module
 
@@ -18,16 +18,16 @@ Object.assign(Module, {
     pushStderr(text)
   },
   preRun: function () {
-  debug && console.log('Emscripten Module.preRun. isNode: ', isNode())
+    debug && console.log('Emscripten Module.preRun. isNode: ', isNode())
     FS.mkdir(emscriptenNodeFsRoot)
-   if (isNode()) {
-    if (!require('f'+'s').existsSync(nodeFsLocalRoot)) {
-      require('f'+'s').mkdirSync(nodeFsLocalRoot, { recursive: true })
+    if (isNode() && !disableNodeFs) {
+      if (!require('f' + 's').existsSync(nodeFsLocalRoot)) {
+        require('f' + 's').mkdirSync(nodeFsLocalRoot, { recursive: true })
+      }
+      debug && console.log(`Mounting local folder ${nodeFsLocalRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
+      FS.mount(NODEFS, { root: nodeFsLocalRoot }, emscriptenNodeFsRoot);
     }
-    debug && console.log(`Mounting local folder ${nodeFsLocalRoot} as emscripten root folder ${emscriptenNodeFsRoot}.`)
-    FS.mount(NODEFS, { root: nodeFsLocalRoot }, emscriptenNodeFsRoot);
-  }
-  debug && console.log('Emscripten Module.preRun <-- exiting')    
+    debug && console.log('Emscripten Module.preRun <-- exiting')
   }
 })
 

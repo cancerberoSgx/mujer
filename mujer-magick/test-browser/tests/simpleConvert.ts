@@ -1,7 +1,7 @@
 import { basename } from 'misc-utils-of-mine-generic';
 import { main } from '../../src';
 import { InputFile } from '../../src/file';
-import { assertEquals, assertToContain } from '../testUtil';
+import { assertEquals, assertIncludes } from '../testUtil';
 
 export default async function f(){
  let result = await main({
@@ -9,7 +9,7 @@ export default async function f(){
     inputFiles: [await InputFile.fromUrl('chala.tiff')]
   })
 //  log(inspect(result));  
-  assertToContain(result.outputFiles[0].name, 'output.bmp')
+  assertIncludes(result.outputFiles[0].name, 'output.bmp')
   assertEquals(result.outputFiles.map(f=>basename(f.name)), ['output.bmp'])
   assertEquals(result.error, undefined)
   assertEquals(result.stderr, [])

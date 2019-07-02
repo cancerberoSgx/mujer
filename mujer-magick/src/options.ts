@@ -4,7 +4,8 @@ let options: Required<NativeOptions> = {
   nodeFsLocalRoot: 'working_tmp',
   emscriptenNodeFsRoot: '/w2',
   debug: false,
-  outputDir: '.'
+  outputDir: '.',
+  disableNodeFs: false
 }
 export function getOptions() {
   return options

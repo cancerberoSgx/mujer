@@ -83,15 +83,27 @@ import { readFileSync, writeFileSync } from 'fs'
  const result = await main({
     debug: true,
     command: 'convert foo.png -scale 50% foo2.png',
-    inputFiles: [{ name: 'foo.png', content: readFileSync('test/assets/n.png') }]
+    inputFiles: [ 'test/assets/n.png' ]
   })
-  result.outputFiles.forEach(f=>writeFileSync(f.name, f.content, {encoding: 'binary'}))
+  result.outputFiles.forEach(f => writeFileSync(f.name, f.content))
 })()
 ```
 
 The following example is analog to the previous one but in the browser: 
 
-TODO
+
+```ts
+import {main} from 'magica'
+
+(async ()=>{
+ const result = await main({
+    debug: true,
+    command: 'convert bar.gif -scale 150% -rotate 45 foo.png',
+    inputFiles: [ 'static/img/bar.gif' ]
+  })
+  document.getElementById('img-foo').src = `data:image/png;base64,${btoa(String.fromCharCode(...result.outputFiles[0].content))}`
+})()
+```
 
 ## Options
 
@@ -107,17 +119,19 @@ Options are the same for the command line and the API:
 
 ## TODO
 
-- [ ] npm run test-js is failing
-- [ ] format tests
+- [ ] npm run test-js fails
 - [ ] support multiple line string commands like in src/main/command.ts
   - [ ] support IM command quoted arguments
-- [ ] node.js : work directly in user's filesystem without copying to emc FS: 
-    * Option to never remove files.
-    * Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
+- [ ] webworker example & recipe
+- [ ] api should comply with using SharedArrayBuffer or Transferable for passing data to/from worker 
+- [ ] because options are global - sending commands concurrently could fail. Solution: queue or instance options
 - [ ] scripts/generateImEnumd.ts we should execute our CLI to extract 
-- [ ] Performance tests (can we measure also memory consumption?)
+- [] Option for Node.js users to work/mount current directory - the tool should not write input files - they should be already there
+- [x] format tests
+- [x] Performance tests (can we measure also memory consumption?)
 - [x] browser tests
 - [x] support input images from URLS both in node and browser.
+- [x] node.js : work directly in user's filesystem without copying to emc FS: 
 - [x] browser
 - [x] CLI
 - [x] CLI tests

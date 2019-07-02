@@ -11,7 +11,7 @@ export function assertEquals(a: any, b: any) {
   assert(aS===bS, 'Expected "' + aS + '" to equals "' + bS+'"');
 }
 
-export function assertToContain(a: string, b: string) {
+export function assertIncludes(a: string, b: string) {
   assert(a.includes(b), 'Expected "' + a + '" to includes "' + b+'"');
 }
 

@@ -2,7 +2,7 @@ import { NativeResult } from './imageMagick/createMain'
 
 export interface File {
   name: string;
-  content: Buffer;
+  content: ArrayBufferView
 }
 
 export interface NativeOptions extends BaseOptions {
@@ -18,6 +18,8 @@ export interface NativeOptions extends BaseOptions {
    * (CLI only). Output files will be written in this folder. By default is current directory.
    */
   outputDir: string
+
+  disableNodeFs?:boolean
 }
 
 interface BaseOptions {
@@ -33,7 +35,7 @@ export interface MainOptions extends NativeOptions {
   /**
    * The list of input files referenced in given [[command]]. It's important that the name of this files match the file names given in the command.
    */
-  inputFiles?: File[]
+  inputFiles?: (string|File)[]
   // /**
   //  * Because input files are copied to the working folder, By default, they are removed after command ends. If this option is true they won't. 
   //  */

@@ -1,6 +1,6 @@
 {
   "name": "magica",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Easy/Quickly use ImageMagick (using wasm-imagemagick) with node.js and browser API and command Line interface.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -8,10 +8,11 @@
     "magica": "bin/magica.js"
   },
   "scripts": {
-    "test": "npm run build && ava",
-    "test-js": "exit 0; npm run build && npx ava ./dist/test/*Test.js",
+    "test": "npm run build && ava --serial",
+    "test-js": "exit 0; npm run build && npx ava ./dist/test/*Test.js --serial",
     "test-watch": "ava -w",
     "prepare": "npm run build",
+    "performance": "npx ts-node -T test/performance/perf1.ts",
     "test-debug": "node --inspect-brk node_modules/ava/cli.js --serial",
     "test-browser": "npx ava test-browser/*Test.ts",
     "browser-sample": "rm -rf dist && mkdir -p dist && npm run build && cp dist/src/imageMagick/compiled/magick.wasm dist && parcel serve test-browser/testBrowser.html",

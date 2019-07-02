@@ -25,7 +25,7 @@ export async function staticServer(basePath: string, port = 9999): Promise<Serve
 
 test('browser tests', async t => {
   t.notThrows(() => execSync('npm run build', { stdio: 'inherit' }), 'npm run build')
-  t.notThrows(() => execSync('rm -rf  test-browser-outdir; mkdir -p test-browser-outdir ; cp dist/src/imageMagick/compiled/*.wasm test/assets/* test-browser-outdir', { stdio: 'inherit' }), 'copy dist/src/imageMagick/compiled/*.wasm')
+  t.notThrows(() => execSync('rm -rf test-browser-outdir; mkdir -p test-browser-outdir ; cp dist/src/imageMagick/compiled/*.wasm test/assets/* test-browser-outdir', { stdio: 'inherit' }), 'copy dist/src/imageMagick/compiled/*.wasm')
   t.notThrows(() => execSync("npx parcel build test-browser/testBrowser.html --public-url './' -d test-browser-outdir --no-source-maps --no-minify", { stdio: 'inherit' }), 'npx parcel build')
 
   const server = await staticServer(resolve('test-browser-outdir'), 8080)
