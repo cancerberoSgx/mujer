@@ -16,7 +16,7 @@ export async function optimizeSvg(o: SvgOptions) {
   }
 }
 
-interface SvgOptions extends BaseOptions {
+export interface SvgOptions extends BaseOptions {
   multipass?: boolean
   precision?: number
   moveElemsAttrsToGroup?: boolean

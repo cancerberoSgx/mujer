@@ -1,13 +1,13 @@
 {
   "name": "mujer",
   "version": "0.0.2",
-  "description": "Practical SVG processing tools for optimize, transform, format conversion, and more, supporting node.js, browser and CLI.",
+  "description": "Practical SVG processing tools for optimize, transform, format conversion, with JavaScript API for Node.js and browser and Command Line Interface",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "bin": {
     "svg2pdf": "bin/svg2pdf.js",
     "simplifyPaths": "bin/simplifyPaths.js",
-    "optimizeSvg": "bin/optimizeSvg.js"
+    "optimize-svg": "bin/optimize-svg.js"
   },
   "scripts": {
     "test": "npm run build && ava",
