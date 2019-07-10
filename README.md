@@ -79,7 +79,9 @@ TODO
 
 ### Command line
 
-TODO
+```sh
+svg2pdf --input "some/**/*.svg" --output output/folder
+```
 
 ### API
 
