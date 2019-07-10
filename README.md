@@ -99,7 +99,9 @@ writeFileSync('output.pdf', pdf)
 
 ### Command line
 
-TODO
+```sh
+svg-simplify-paths --input "some/**/*.svg" --output output/folder --tolerance 3
+```
 
 ### API
 
@@ -119,6 +121,11 @@ writeFileSync('test2_simplified.svg', output)
 // in the browser I could render in the document:
 document.getElementById('svg-container').innerHTML = output
 ```
+
+### Options
+
+TODO
+
 
 # TODO / Status / Roadmap
 
