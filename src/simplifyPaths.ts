@@ -3,11 +3,12 @@ import { visit } from './paper'
 import { BaseOptions } from './types'
 import { resolveInput } from './util'
 
-interface SimplifyPathsOptions extends BaseOptions {
+export interface SimplifyPathsOptions extends BaseOptions {
   tolerance: number
   width: number
   height: number
 }
+
 export async function simplifyPaths(o: SimplifyPathsOptions) {
   paper.setup(new paper.Size(o.width, o.height))
   const svg = await importSvgAndSimplifyPaths({

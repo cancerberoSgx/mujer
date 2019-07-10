@@ -44,7 +44,9 @@ Minimizes SVG code size using [svgo](TODO) and optionally simplifyPaths utility.
 
 ### Command line
 
-TODO
+```sh
+svg-optimize --input "some/**/*.svg" --output output/folder
+```
 
 ### API
 
@@ -63,6 +65,11 @@ writeFileSync('foo/bar_optimized.svg', output)
 // in the browser I could render in the document:
 document.getElementById('svg-container').innerHTML = output
 ```
+
+### Options
+
+TODO
+
 
 ## svg2pdf  
 
