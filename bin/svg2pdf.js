@@ -1,3 +1,3 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
-// require('../dist/src/cli/png2svgCliMain')
+require('../dist/src/cli/svg2pdfCliMain')

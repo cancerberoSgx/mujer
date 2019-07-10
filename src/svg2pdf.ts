@@ -5,7 +5,7 @@ import { resolveInput } from './util'
 
 var paper = require('paper-jsdom-canvas') as PaperScope & { createCanvas: any } & (typeof paper_)
 
-interface Svg2PdfOptions extends BaseOptions {
+export interface Svg2PdfOptions extends BaseOptions {
   width: number
   height: number
 }

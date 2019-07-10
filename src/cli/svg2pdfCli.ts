@@ -1,3 +1,78 @@
+import { existsSync, mkdirSync, writeFileSync } from 'fs'
+import { sync as glob } from 'glob'
+import { basename, pathJoin, serial, withoutExtension } from 'misc-utils-of-mine-generic'
+import { svg2pdf, Svg2PdfOptions } from '../svg2pdf'
+
+interface Svg2pdfCliOptions extends Svg2PdfOptions {
+  help?: boolean
+  output?: string
+}
+
+export async function svg2pdfCli(options: Svg2pdfCliOptions) {
+  options.width = options.width || 3000
+  options.height = options.height || 3000
+  preconditions(options)
+  options.debug && console.log(`CLI Options: ${JSON.stringify({ ...options, input: null })}`)
+  const input = (typeof options.input === 'string' ? glob(options.input).filter(existsSync) : [])
+  if (!input.length) {
+    fail(`No input files found for ${input}. Aborting. `)
+  }
+  if (options.output && !existsSync(options.output)) {
+    mkdirSync(options.output, { recursive: true })
+  }
+  await serial(input.map(input => async () => {
+    try {
+      options.debug && console.log('Rendering ' + input)
+      const content = await svg2pdf({ ...options })
+      if (options.output) {
+        const outputFilePath = pathJoin(options.output, withoutExtension(basename(input)) + '.pdf')
+        writeFileSync(outputFilePath, content)
+      }
+      else {
+        process.stdout.write(content)
+      }
+    } catch (error) {
+      console.error('ERROR while rendering file ' + input)
+      console.error(error, error.stack)
+    }
+  }))
+}
+
+function preconditions(options: Svg2pdfCliOptions) {
+  if (!options.input) {
+    fail('--input argument is mandatory but not given. Aborting.')
+  }
+  if (options.help) {
+    printHelp()
+    process.exit(0)
+  }
+}
+
+function fail(msg: string) {
+  console.error(msg)
+  process.exit(1)
+}
+
+function printHelp() {
+  console.log(`
+Usage: 
+
+svg2pdf --input "foo/**/*.svg" --output output/dir 
+
+Options:
+
+* --input: string | Buffer: Path or glob file pattern to .png files, relative to current dir.
+* --output: string: Folder for output files. If it doesn't exists it will be created. If none, output files will be written in current folder.
+* --width: number : optional output image width in the pdf
+* --height: number : optional output image height in the pdf
+* --help: boolean:  Print usage information, then exit.
+* --debug: boolean:  Prints debug messages. 
+
+`)
+}
+
+
+
 // import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 // import { sync as glob } from 'glob'
 // import { serial } from 'misc-utils-of-mine-generic'
