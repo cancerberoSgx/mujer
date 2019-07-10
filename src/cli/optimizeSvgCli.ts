@@ -1,9 +1,9 @@
-import { SvgOptions, optimizeSvg } from '../optimizeSvg';
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
-import  {sync as glob} from 'glob'
-import { serial, basename, pathJoin } from 'misc-utils-of-mine-generic';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { sync as glob } from 'glob'
+import { basename, pathJoin, serial } from 'misc-utils-of-mine-generic'
+import { optimizeSvg, SvgOptions } from '../optimizeSvg'
 
-interface OptimizeSvgCliOptions extends SvgOptions{
+interface OptimizeSvgCliOptions extends SvgOptions {
   help?: boolean
   output?: string
 }

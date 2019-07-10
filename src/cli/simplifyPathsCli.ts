@@ -1,10 +1,9 @@
-import { SvgOptions, optimizeSvg } from '../optimizeSvg';
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
-import  {sync as glob} from 'glob'
-import { serial, basename, pathJoin } from 'misc-utils-of-mine-generic';
-import { SimplifyPathsOptions, simplifyPaths } from '../simplifyPaths';
+import { existsSync, mkdirSync, writeFileSync } from 'fs'
+import { sync as glob } from 'glob'
+import { basename, pathJoin, serial } from 'misc-utils-of-mine-generic'
+import { simplifyPaths, SimplifyPathsOptions } from '../simplifyPaths'
 
-interface SimplifyPathsCliOptions extends SimplifyPathsOptions{
+interface SimplifyPathsCliOptions extends SimplifyPathsOptions {
   help?: boolean
   output?: string
 }
@@ -24,7 +23,7 @@ export async function simplifyPathsCli(options: SimplifyPathsCliOptions) {
   await serial(input.map(input => async () => {
     try {
       options.debug && console.log('Rendering ' + input)
-      const content = await simplifyPaths({ ...options})
+      const content = await simplifyPaths({ ...options })
       if (options.output) {
         const outputFilePath = pathJoin(options.output, basename(input))
         writeFileSync(outputFilePath, content)

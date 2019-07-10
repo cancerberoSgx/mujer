@@ -6,17 +6,21 @@
 
 <!-- toc -->
 
+- [Summary](#summary)
 - [Install](#install)
 - [Tools](#tools)
   * [optimizeSvg](#optimizesvg)
     + [Command line](#command-line)
     + [API](#api)
+    + [Options](#options)
   * [svg2pdf](#svg2pdf)
     + [Command line](#command-line-1)
     + [API](#api-1)
   * [simplifyPaths](#simplifypaths)
     + [Command line](#command-line-2)
     + [API](#api-2)
+    + [Options](#options-1)
+- [TODO / Status / Roadmap](#todo--status--roadmap)
 
 <!-- tocstop -->
 

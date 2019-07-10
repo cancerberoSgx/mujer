@@ -1,4 +1,4 @@
 export interface BaseOptions {
-  input: string, 
+  input: string,
   debug?: boolean
 }
