@@ -1,6 +1,6 @@
 {
   "name": "mujer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Practical SVG processing tools for optimize, transform, format conversion, with JavaScript API for Node.js and browser and Command Line Interface",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -32,8 +32,7 @@
     "paper": "^0.12.3",
     "paper-jsdom": "^0.12.3",
     "paper-jsdom-canvas": "^0.12.3",
-    "svgo": "github:cancerberosgx/svgo",
-    "tiny-worker": "^2.2.0"
+    "svgo": "github:cancerberosgx/svgo"
   },
   "devDependencies": {
     "@types/node": "^12.6.2",
